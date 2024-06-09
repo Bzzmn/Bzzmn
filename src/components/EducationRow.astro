@@ -1,0 +1,42 @@
+---
+interface EducationProps {
+    type: string;
+    institution: string;
+    logo: string;
+    certificate: string;
+    program: string;
+    date: string;
+    category: string;
+}
+
+const { type, institution, logo, certificate, program, date, category } = Astro.props as EducationProps
+--- 
+
+<tr class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
+    <td class="px-4 py-2">
+        <p class="bg-primary text-primary-800 text-xs font-medium py-0.5 rounded dark:bg-primary-900 dark:text-primary-300 text-wrap">{type}</p>
+    </td>
+    <th scope="row" class="h-full px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+        <div class="flex gap-2 mb-2 px-2">
+            <img width="48" src={logo} loading="lazy" height="48" alt="Logotipo de MIT Sloan School of Management" id="ember1817" class="ivm-view-attr__img--centered EntityPhoto-square-3 evi-image lazy-image ember-view inline-block rounded-full">
+            <p class="flex items-center text-wrap min-w-40">{institution}</p>
+        </div>
+        <a href={certificate} class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" target="_blank">
+            Certificate
+                <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+            </svg>
+        </a>
+    </th>
+    <td class="px-4 py-2">
+        <p class="bg-primary-100 text-primary-800 text-xs font-medium py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">{program}</p>
+        
+    </td>
+    <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+        <div class="flex items-center">
+            {date}
+        </div>
+    </td>
+    <td class="px-4 py-2 font-medium text-gray-900  dark:text-white">{category}</td>
+
+</tr>

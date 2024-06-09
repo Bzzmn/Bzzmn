@@ -1,0 +1,89 @@
+---
+interface ProjectProps {
+    title: string;
+    description: string;
+    link: string;
+    techs: string[];
+    repolink: string;
+    image: string;
+}
+
+const { title, description, link, techs, repolink, image } = Astro.props as ProjectProps;
+
+const techColors: { [key: string]: string } = {
+    Postgres: "#336791",
+    MongoDB: "#47A248",
+    Firebase: "#FFCA28",
+    AWSCloud: "#FF9900",
+    Render: "#46E3B7",
+    Vercel: "#000000",
+    Heroku: "#430098",
+    Figma: "#F24E1E",
+    Canva: "#00C4CC",
+    LangChain: "#F7DF1E",
+    Python: "#FFD43B",
+    Django: "#092E20",
+    JavaScript: "#F0DB4F",
+    React: "#61DAFB",
+    ReactNative: "#61DAFB",
+    Astro: "#FF5D01", 
+    NodeJS: "#339933",
+    Bootstrap: "#7952B3",
+    Tailwind: "#38B2AC",
+    Git: "#F05032",
+    GitHub: "#181717",
+    OpenAI: "#412991",
+    TypeScript: "#3178C6",
+    GraphQL: "#E10098",
+    Docker: "#2496ED",
+    Kubernetes: "#326CE5",
+    Nginx: "#009639",
+    GoogleCloud: "#4285F4",
+    Netlify: "#00C7B7",
+    MSAzure: "#0078D4",
+}
+
+
+function getTextColor(backgroundColor:string) {
+    const color = (backgroundColor.charAt(0) === '#') ? backgroundColor.substring(1, 7) : backgroundColor;
+    const r = parseInt(color.substring(0, 2), 16); 
+    const g = parseInt(color.substring(2, 4), 16); 
+    const b = parseInt(color.substring(4, 6), 16);
+
+    const luminance = 0.299 * r + 0.587 * g + 0.114 * b;
+    return (luminance > 150) ? 'black' : 'white';
+}
+
+---
+
+<div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col">
+    <a href={link} target="_blank">
+        <img class="rounded-t-lg" src={image} alt={title} />
+    </a> 
+    <div class="p-4 flex-grow flex flex-col justify-start ">
+
+        <div id="techs" class="flex items-center justify-start flex-wrap">
+            {techs.map((tech) => {
+                const bgColor = techColors[tech];
+                const textColor = getTextColor(bgColor);
+                return (
+                    <div style={`background-color: ${bgColor}; color: ${textColor};`} class="inline-flex items-center m-1 px-2 py-1 text-xs font-medium text-center rounded-xl lg:text-[0.6rem]">
+                        {tech}
+                    </div>
+                );
+            })}
+        </div>
+        <div class="mt-5">
+            <h5 class="my-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{title}</h5>
+        </div>
+        <div class="flex flex-col justify-between h-full">
+            <p class="mb-5 font-normal text-gray-700 dark:text-gray-400">{description}</p>
+            <a href={repolink} target="_blank" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 justify-self-end">
+                GitHub Repository
+                    <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+</div>

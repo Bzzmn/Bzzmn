@@ -1,0 +1,168 @@
+---
+import '@fontsource-variable/onest';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+	title: string;
+}
+const { title } = Astro.props;
+
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<script>
+			if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+				document.documentElement.classList.add('dark');
+			} else {
+				document.documentElement.classList.remove('dark');
+			}
+		</script>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body>
+		<div class="fixed left-0 top-0 -z-10 h-full w-full">
+			<div id="background-container">
+				<div class="bg-dark" id="bg-dark"></div>
+				<div class="bg-light" id="bg-light"></div>
+			</div>
+		</div>
+		<Header />
+		<slot />
+		<Footer />
+		<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"></script>
+		
+		<script>
+			const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+			const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+			const themeToggler = document.getElementById('theme-toggler');
+			const bgDark = document.getElementById('bg-dark');
+			const bgLight = document.getElementById('bg-light');
+			// Initialize icons based on theme
+			if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+				themeToggleLightIcon?.classList.remove('hidden');
+				themeToggleDarkIcon?.classList.add('hidden');
+				if (bgDark && bgLight) {
+					bgDark.style.opacity = "1";
+					bgLight.style.opacity = "0";
+				}
+		
+			} else {
+				themeToggleDarkIcon?.classList.remove('hidden');
+				themeToggleLightIcon?.classList.add('hidden');
+				if (bgDark && bgLight) {
+					bgDark.style.opacity = "0";
+					bgLight.style.opacity = "1";
+				}
+			}
+
+			function toggleTheme() {
+				themeToggleDarkIcon?.classList.toggle('hidden');
+				themeToggleLightIcon?.classList.toggle('hidden');
+
+				if (localStorage.getItem('color-theme')) {
+					if (localStorage.getItem('color-theme') === 'light') {
+						document.documentElement.classList.add('dark');
+						localStorage.setItem('color-theme', 'dark');
+						if (bgDark && bgLight) {
+								bgDark.style.opacity = "1";
+								bgLight.style.opacity = "0";
+							}
+					} else {
+						document.documentElement.classList.remove('dark');
+						localStorage.setItem('color-theme', 'light');
+						if (bgDark && bgLight) {
+								bgDark.style.opacity = "0";
+								bgLight.style.opacity = "1";
+							}
+					}
+				} else {
+					if (document.documentElement.classList.contains('dark')) {
+						document.documentElement.classList.remove('dark');
+						localStorage.setItem('color-theme', 'light');
+						if (bgDark && bgLight) {
+								bgDark.style.opacity = "0";
+								bgLight.style.opacity = "1";
+							}
+					} else {
+						document.documentElement.classList.add('dark');
+						localStorage.setItem('color-theme', 'dark');
+						if (bgDark && bgLight) {
+								bgDark.style.opacity = "1";
+								bgLight.style.opacity = "0";
+							}
+					}
+				}
+			}
+
+			themeToggler?.addEventListener('change', toggleTheme);
+		</script>
+	
+	</body>
+</html>
+
+<style is:global>
+:root {
+	color-scheme: light dark;
+}
+
+html {
+	font-family: 'Onest Variable', sans-serif;
+	scroll-behavior: smooth;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	min-height: 100dvh;
+}
+
+main {
+	flex: 1;
+	padding: 0 1.5rem;
+}
+
+@media (prefers-reduced-motion) {
+	* {
+		scroll-behavior: auto !important;
+	}
+}
+
+.background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -10;
+    overflow: hidden;
+}
+
+.bg-dark, .bg-light {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 1s ease;
+}
+
+.bg-dark {
+    background: radial-gradient(ellipse 80% 80% at 50% -20%, rgba(120,119,198,0.3), rgba(0,0,0,1));
+    opacity: 1; /* Visible by default */
+}
+
+.bg-light {
+    background: radial-gradient(125% 125% at 50% 10%, #fff 40%, #63e 100%);
+    opacity: 0; /* Hidden by default */
+}
+
+</style>

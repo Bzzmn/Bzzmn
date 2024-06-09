@@ -1,0 +1,126 @@
+---
+import EducationRow from './EducationRow.astro'
+
+const education = [
+
+    {
+        type: 'Specialization Course',
+        institution: 'Deeplearning.ai',
+        logo: 'https://media.licdn.com/dms/image/C560BAQEHKffoI8RwIQ/company-logo_100_100/0/1630672537710/deeplearningai_logo?e=1726099200&v=beta&t=pIXeSAgBG1oAXc_XkvszH_DQH1qUrpe5dqDFJiKPM6g',
+        program: 'Generative AI with Large Language Models',
+        date: 'Jun 2024',
+        category: 'Artificial Intelligence',
+        certificate: 'https://www.coursera.org/account/accomplishments/verify/5LBWU93TZAUL',
+    }, 
+    {
+        type: 'Specialization Course',
+        institution: 'University of Helsinki',
+        logo: 'https://media.licdn.com/dms/image/C560BAQHZQ2B3IQO9xg/company-logo_200_200/0/1631300517673?e=1726099200&v=beta&t=tPfShx4hZWZQgQ5_pWQT_yZCf435zN9-a4k0zl3cYco',
+        program: 'Full Stack Open - Deep Dive Into Modern Web Development',
+        date: 'Jun 2024',
+        category: 'Web Development',
+        certificate: '',
+    }, 
+    {
+        type: 'Specialization Course',
+        institution: 'Desafío Latam',
+        logo: 'https://media.licdn.com/dms/image/D4D0BAQE1FHZiWTVQeA/company-logo_200_200/0/1712146562246/desafiolatam_logo?e=1726099200&v=beta&t=srxiWtxMuNkskUaVN-JPmNw2-d_ycBE8FcoxoVvik6I',
+        program: 'Full Stack Python Web Apps Development',
+        date: 'Jun 2024',
+        category: 'Web Development',
+        certificate: 'https://mitsloan.credential.getsmarter.com/d8dae6d1-b4fa-4cb7-8eeb-3cd317543ce1',
+    }, 
+    {
+        type: 'Specialization Course',
+        institution: 'Coderhouse',
+        logo: 'https://media.licdn.com/dms/image/C4D0BAQH47RGjDD7AwQ/company-logo_200_200/0/1640272006358/coderhouse_logo?e=1726099200&v=beta&t=FiVzAH_fdXUjVMdhSpMXzwFr-AVzVAOQxjUO4jpbNnQ',
+        program: 'React JS',
+        date: 'May 2024',
+        category: 'Web Development',
+        certificate: 'https://general-projects-public.s3.eu-west-3.amazonaws.com/reactjs_665bb3f07a43e34378945374.webp',
+    }, 
+    {
+        type: 'Specialization Course',
+        institution: 'Coderhouse',
+        logo: 'https://media.licdn.com/dms/image/C4D0BAQH47RGjDD7AwQ/company-logo_200_200/0/1640272006358/coderhouse_logo?e=1726099200&v=beta&t=FiVzAH_fdXUjVMdhSpMXzwFr-AVzVAOQxjUO4jpbNnQ',
+        program: 'JavaScript',
+        date: 'Mar 2024',
+        category: 'Web Development',
+        certificate: 'https://general-projects-public.s3.eu-west-3.amazonaws.com/javascript_6616df7dd362da3865693edb.webp',
+    }, 
+    {
+        type: 'Specialization Course',
+        institution: 'MIT Sloan School of Management',
+        logo: 'https://media.licdn.com/dms/image/C4E0BAQF-NKQHUG7hUg/company-logo_100_100/0/1631325873804?e=1726099200&v=beta&t=iCnaVsrXXjgqEIkbNiIrVwxRw5uvom0wrHIlYWfkls0',
+        program: 'Blockchain and Crypto Applications: From Decentralized Finance to Web 3',
+        date: 'Oct 2023',
+        category: 'Blockchain',
+        certificate: 'https://mitsloan.credential.getsmarter.com/d8dae6d1-b4fa-4cb7-8eeb-3cd317543ce1',
+    }, 
+    {
+        type: 'Specialization Course',
+        institution: 'CertiProf',
+        logo: 'https://media.licdn.com/dms/image/C4D0BAQGqXl2RWLuR5A/company-logo_200_200/0/1630559021202/certiprof_logo?e=1726099200&v=beta&t=XRguvwyl0mtt4M-hfvWr_pm5pvt8Vdbp4-E9Nx19cWc',
+        program: 'Scrum Product Owner Professional Certificate (SPOPC)',
+        date: 'Feb 2023',
+        category: 'Agile Methodologies',
+        certificate: 'https://www.credly.com/badges/b8d3f9c8-3115-4f53-a62e-d6a700ed110c/public_url',
+    }, 
+    {
+        type: 'Diploma',
+        institution: 'Universidad de Chile',
+        logo: 'https://media.licdn.com/dms/image/D4E0BAQEwtavnsOi1Jw/company-logo_200_200/0/1699367544526/uchile_logo?e=1726099200&v=beta&t=stELPqnm_U3f7KtubjJixrEBTnnjVDZE6eUaz9LdWvI',
+        program: 'Digital Marketing & e-Business',
+        date: 'Jul 2020',
+        category: 'Marketing',
+        certificate: '',
+    },
+    {
+        type: 'Diploma',
+        institution: 'Universidad de Chile',
+        logo: 'https://media.licdn.com/dms/image/D4E0BAQEwtavnsOi1Jw/company-logo_200_200/0/1699367544526/uchile_logo?e=1726099200&v=beta&t=stELPqnm_U3f7KtubjJixrEBTnnjVDZE6eUaz9LdWvI',
+        program: 'International trade and logistics',
+        date: 'Jan 2018',
+        category: 'Business',
+        certificate: '',
+    },
+    {
+        type: 'Bs. Degree',
+        institution: 'Universidad Diego Portales',
+        logo: 'https://media.licdn.com/dms/image/C4E0BAQFCFgaWkS7FUw/company-logo_200_200/0/1631300387614?e=1726099200&v=beta&t=U-tpWLrOeR2D559PAQin6spjR7KFuyOG8hXBTUbsM3k',
+        program: 'Business Engineering - Approved with Distinction',
+        date: 'Dec 2017',
+        category: 'Business',
+        certificate: '',
+    }
+]
+
+---
+
+<div class= "mx-auto max-w-screen-2xl">
+    <div class="relative overflow-hidden bg-white shadow-md dark:bg-gray-800 rounded-lg">
+
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-4 py-6">Type</th>
+                        <th scope="col" class="px-4 py-6">Institution</th>
+                        <th scope="col" class="px-4 py-6">Program</th>
+                        <th scope="col" class="px-4 py-6">Date</th>
+                        <th scope="col" class="px-4 py-6">Category</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        education.map((item) => (
+                            <EducationRow {...item} />
+                    ))
+                    }
+                   
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
