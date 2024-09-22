@@ -39,7 +39,7 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
     const [hovered, setHovered] = useState(false)
     const [touchStartPosition, setTouchStartPosition] = useState(null)
     const [preventDefault, setPreventDefault] = useState(false)
-    const TOUCH_DRAG_STRENGTH = 3
+    const TOUCH_DRAG_STRENGTH = 6
 
     const drag = (value) => {
         console.log('Drag state changed:', value)
@@ -210,13 +210,8 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
 }
 
 const getTouchPos = (e) => {
-    const touch = e.touches[0];
-    const rect = e.target.getBoundingClientRect();
-    const x = touch.clientX - rect.left;
-    const y = touch.clientY - rect.top;
-    const aspectRatio = window.innerWidth / window.innerHeight;
-    const fov = 35 * (Math.PI / 180); // Convert FOV to radians
-    const touchX = (x / rect.width) * 2 - 1;
-    const touchY = -((y / rect.height) * 2 - 1) / aspectRatio;
-    return new THREE.Vector2(touchX * Math.tan(fov / 2), touchY * Math.tan(fov / 2));
+    return new THREE.Vector2(
+        (e.touches[0].clientX / window.innerWidth) * 2 - 1,
+        -(e.touches[0].clientY / window.innerHeight) * 2 + 1
+    );
 }
