@@ -39,7 +39,7 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
     const [hovered, setHovered] = useState(false)
     const [touchStartPosition, setTouchStartPosition] = useState(null)
     const [preventDefault, setPreventDefault] = useState(false)
-    const TOUCH_DRAG_STRENGTH = 6
+
 
     const drag = (value) => {
         console.log('Drag state changed:', value)
@@ -92,8 +92,8 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
         }
         if (dragged && touchStartPosition) {
             const touchPos = getTouchPos(e)
-            const deltaX = (touchPos.x - touchStartPosition.x) * TOUCH_DRAG_STRENGTH
-            const deltaY = (touchPos.y - touchStartPosition.y) * TOUCH_DRAG_STRENGTH
+            const deltaX = touchPos.x - touchStartPosition.x
+            const deltaY = touchPos.y - touchStartPosition.y
             const newPosition = new THREE.Vector3(
                 dragged.x + deltaX,
                 dragged.y + deltaY,
