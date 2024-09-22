@@ -39,11 +39,17 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
     const [curve] = useState(() => new THREE.CatmullRomCurve3([new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()]))
     const [dragged, drag] = useState(false)
     const [hovered, hover] = useState(false)
+    const [touchStartPosition, setTouchStartPosition] = useState(null)
+    const [isTouchDevice, setIsTouchDevice] = useState(false)
 
     useRopeJoint(fixed, j1, [[0, 0, 0], [0, 0, 0], 1]) // prettier-ignore
     useRopeJoint(j1, j2, [[0, 0, 0], [0, 0, 0], 1]) // prettier-ignore
     useRopeJoint(j2, j3, [[0, 0, 0], [0, 0, 0], 1]) // prettier-ignore
     useSphericalJoint(j3, card, [[0, 0, 0], [0, 1.45, 0]]) // prettier-ignore
+
+    useEffect(() => {
+        setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0)
+    }, [])
 
     useEffect(() => {
         if (hovered) {
@@ -52,13 +58,57 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
         }
     }, [hovered, dragged])
 
+    const handlePointerDown = (e) => {
+        if (!isTouchDevice) {
+            e.target.setPointerCapture(e.pointerId)
+            drag(new THREE.Vector3().copy(e.point).sub(vec.copy(card.current.translation())))
+        }
+    }
+
+    const handlePointerUp = (e) => {
+        if (!isTouchDevice) {
+            e.target.releasePointerCapture(e.pointerId)
+            drag(false)
+        }
+    }
+
+    const handleTouchStart = (e) => {
+        e.preventDefault()
+        const touch = e.touches[0]
+        setTouchStartPosition(new THREE.Vector2(touch.clientX, touch.clientY))
+        drag(new THREE.Vector3().copy(card.current.translation()))
+    }
+
+    const handleTouchMove = (e) => {
+        e.preventDefault()
+        if (dragged && touchStartPosition) {
+            const touch = e.touches[0]
+            const deltaX = touch.clientX - touchStartPosition.x
+            const deltaY = touch.clientY - touchStartPosition.y
+            const newPosition = new THREE.Vector3(
+                dragged.x + deltaX * 0.01,
+                dragged.y - deltaY * 0.01,
+                dragged.z
+            )
+            card.current?.setNextKinematicTranslation(newPosition)
+        }
+    }
+
+    const handleTouchEnd = (e) => {
+        e.preventDefault()
+        setTouchStartPosition(null)
+        drag(false)
+    }
+
     useFrame((state, delta) => {
         if (dragged) {
-            vec.set(state.pointer.x, state.pointer.y, 0.5).unproject(state.camera)
-            dir.copy(vec).sub(state.camera.position).normalize()
-            vec.add(dir.multiplyScalar(state.camera.position.length()))
-                ;[card, j1, j2, j3, fixed].forEach((ref) => ref.current?.wakeUp())
-            card.current?.setNextKinematicTranslation({ x: vec.x - dragged.x, y: vec.y - dragged.y, z: vec.z - dragged.z })
+            if (!isTouchDevice || !touchStartPosition) {
+                vec.set(state.pointer.x, state.pointer.y, 0.5).unproject(state.camera)
+                dir.copy(vec).sub(state.camera.position).normalize()
+                vec.add(dir.multiplyScalar(state.camera.position.length()))
+                    ;[card, j1, j2, j3, fixed].forEach((ref) => ref.current?.wakeUp())
+                card.current?.setNextKinematicTranslation({ x: vec.x - dragged.x, y: vec.y - dragged.y, z: vec.z - dragged.z })
+            }
         }
         if (fixed.current) {
             // Fix most of the jitter when over pulling the card
@@ -103,8 +153,12 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
                         position={[0, -1.2, -0.05]}
                         onPointerOver={() => hover(true)}
                         onPointerOut={() => hover(false)}
-                        onPointerUp={(e) => (e.target.releasePointerCapture(e.pointerId), drag(false))}
-                        onPointerDown={(e) => (e.target.setPointerCapture(e.pointerId), drag(new THREE.Vector3().copy(e.point).sub(vec.copy(card.current.translation()))))}>
+                        onPointerDown={handlePointerDown}
+                        onPointerUp={handlePointerUp}
+                        onTouchStart={handleTouchStart}
+                        onTouchMove={handleTouchMove}
+                        onTouchEnd={handleTouchEnd}
+                    >
                         <mesh geometry={nodes.card.geometry}>
                             <meshPhysicalMaterial map={materials.base.map} map-anisotropy={16} clearcoat={1} clearcoatRoughness={0.15} roughness={0.3} metalness={0.5} />
                         </mesh>
