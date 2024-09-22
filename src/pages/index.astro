@@ -1,46 +1,94 @@
 ---
-import Badge from '../components/Badge.astro';
-import Layout from '../layouts/Layout.astro';
-import Experience from '../components/Experience.astro';
-import SectionContainer from '../components/SectionContainer.astro';
-import Projects from '../components/Projects.astro';
-import Education from '../components/Education.astro';
-import ChileanFlag from '../components/icons/ChileanFlag.astro';
-import ButtonAnimatedGradient from '../components/ButtonAnimatedGradient.tsx';
-import Footer from '../components/Footer.astro';
+import Badge from "../components/Badge.astro";
+import Layout from "../layouts/Layout.astro";
+import Experience from "../components/Experience.astro";
+import SectionContainer from "../components/SectionContainer.astro";
+import Projects from "../components/Projects.astro";
+import Education from "../components/Education.astro";
+import ChileanFlag from "../components/icons/ChileanFlag.astro";
+import ButtonAnimatedGradient from "../components/ButtonAnimatedGradient.tsx";
+import Footer from "../components/Footer.astro";
+import Card from "../components/Card.jsx";
+import FullWidthSectionContainer from "../components/FullWidthSectionContainer.astro";
 ---
 
 <Layout title="My Full Stack Developer Profile Page">
 	<main>
-		<SectionContainer class="pt-24 pb-20">
-			<img class="rounded-full size-52 mb-8" src="/profile.png" alt="bzzmn photo">
-			<h1 class="text-6xl font-bold py-8 flex gap-x-5 text-gray-900 dark:text-white">Hey, I'm Alvaro <a href="https://www.linkedin.com/in/alvaro-acevedo-ing/" class="flex items-center"> <Badge>Available for work</Badge></a></h1>
-			<h2 class="text-2xl text-wrap mb-8 text-gray-900 dark:text-white">As a Business Engineer and Developer with over 7 years in product management and development, I specialize in crafting unique digital products using AI and cutting-edge technologies.<br><br>Based in Santiago, Chile <ChileanFlag class="size-8 inline" />, I am committed to transforming ideas into successful solutions that drive business growth.</h2>
+		<FullWidthSectionContainer class="card-content h-[100vh] w-full z-10">
+			<Card client:only="react" />
+		</FullWidthSectionContainer>
+		<SectionContainer class="text-content relative pb-20 -mt-[50vh] z-50">
+			<h1
+				class="text-6xl font-bold py-8 flex gap-x-5 text-gray-900 dark:text-white z-50"
+			>
+				Hey, I'm Alvaro <a
+					href="https://www.linkedin.com/in/alvaro-acevedo-ing/"
+					class="flex items-center"
+				>
+					<Badge>Let's work together</Badge></a
+				>
+			</h1>
+			<h2 class="text-2xl text-wrap mb-8 text-gray-900 dark:text-white">
+				As a Business Engineer and Web Developer with over 10 years of
+				experience working for startups and corporates companies, I
+				specialize in crafting unique digital products using
+				cutting-edge technologies.<br /><br />Based in Santiago, Chile <ChileanFlag
+					class="size-8 inline"
+				/>, I am committed to transforming ideas into successful
+				solutions that drive business growth.
+			</h2>
 
 			<div class="flex gap-2 flex-wrap">
-				<ButtonAnimatedGradient text="LinkedIn" iconId="linkedin" href="https://www.linkedin.com/in/alvaro-acevedo-ing/"  client:load />
-				<ButtonAnimatedGradient text="GitHub" iconId="github" href="https://github.com/Bzzmn" client:load />
-				<ButtonAnimatedGradient text="alvaro.acevedo.ing@gmail.com" iconId="mail" href="mailto:alvaro.acevedo.ing@gmail.com" client:load />
+				<ButtonAnimatedGradient
+					text="LinkedIn"
+					iconId="linkedin"
+					href="https://www.linkedin.com/in/alvaro-acevedo-ing/"
+					client:load
+				/>
+				<ButtonAnimatedGradient
+					text="GitHub"
+					iconId="github"
+					href="https://github.com/Bzzmn"
+					client:load
+				/>
+				<ButtonAnimatedGradient
+					text="alvaro.acevedo.ing@gmail.com"
+					iconId="mail"
+					href="mailto:alvaro.acevedo.ing@gmail.com"
+					client:load
+				/>
 			</div>
-			
 		</SectionContainer>
 		<SectionContainer id="experience">
-			<div>		
-				<h2 class="text-4xl font-bold mb-10 text-gray-900 dark:text-white">Experience</h2>
+			<div>
+				<h2
+					class="text-4xl font-bold mb-10 text-gray-900 dark:text-white"
+				>
+					Experience
+				</h2>
 			</div>
 			<Experience />
 		</SectionContainer>
 		<div class="h-20"></div>
 		<SectionContainer id="projects">
-			<div>		
-				<h2 id='projects' class="text-4xl font-bold mb-10 text-gray-900 dark:text-white">Projects</h2>
+			<div>
+				<h2
+					id="projects"
+					class="text-4xl font-bold mb-10 text-gray-900 dark:text-white"
+				>
+					Projects
+				</h2>
 			</div>
 			<Projects />
 		</SectionContainer>
 		<div class="h-28"></div>
 		<SectionContainer id="education">
-			<div>		
-				<h2 class="text-4xl font-bold mb-10 text-gray-900 dark:text-white">Education & Cetifications</h2>
+			<div>
+				<h2
+					class="text-4xl font-bold mb-10 text-gray-900 dark:text-white"
+				>
+					Education & Cetifications
+				</h2>
 			</div>
 			<Education />
 		</SectionContainer>
