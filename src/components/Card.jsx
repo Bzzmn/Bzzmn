@@ -84,6 +84,8 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
         drag(new THREE.Vector3().copy(card.current.translation()))
     }
 
+    const TOUCH_SENSITIVITY = 3
+
     const handleTouchMove = (e) => {
         console.log('Touch move event triggered')
         if (preventDefault) {
@@ -92,15 +94,14 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
         }
         if (dragged && touchStartPosition) {
             const touchPos = getTouchPos(e)
-            const deltaX = touchPos.x - touchStartPosition.x
-            const deltaY = touchPos.y - touchStartPosition.y
+            const deltaX = (touchPos.x - touchStartPosition.x) * TOUCH_SENSITIVITY
+            const deltaY = (touchPos.y - touchStartPosition.y) * TOUCH_SENSITIVITY
             const newPosition = new THREE.Vector3(
                 dragged.x + deltaX,
                 dragged.y + deltaY,
                 dragged.z
             )
             card.current?.setNextKinematicTranslation(newPosition)
-            setTouchStartPosition(touchPos) // Update the touch start position for continuous movement
         }
     }
 
