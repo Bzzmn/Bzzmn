@@ -10,6 +10,8 @@ import ButtonAnimatedGradient from "../components/ButtonAnimatedGradient.tsx";
 import Footer from "../components/Footer.astro";
 import Card from "../components/Card.jsx";
 import FullWidthSectionContainer from "../components/FullWidthSectionContainer.astro";
+import EduCategories from "../components/EduCategories.tsx";
+import type { lazy } from "astro/zod";
 ---
 
 <Layout title="My Full Stack Developer Profile Page">
@@ -66,7 +68,7 @@ import FullWidthSectionContainer from "../components/FullWidthSectionContainer.a
 					id="projects"
 					class="text-4xl font-bold mb-10 text-gray-900 dark:text-white"
 				>
-					Lastest Projects
+					Check My Lastest Projects:
 				</h2>
 			</div>
 			<Projects />
@@ -77,7 +79,7 @@ import FullWidthSectionContainer from "../components/FullWidthSectionContainer.a
 				<h2
 					class="text-4xl font-bold mb-10 text-gray-900 dark:text-white"
 				>
-					Experience
+					My Journey:
 				</h2>
 			</div>
 			<Experience />
@@ -87,12 +89,17 @@ import FullWidthSectionContainer from "../components/FullWidthSectionContainer.a
 		<SectionContainer id="education">
 			<div>
 				<h2
-					class="text-4xl font-bold mb-10 text-gray-900 dark:text-white"
+					class="text-4xl font-bold mb-20 text-gray-900 dark:text-white text-center"
 				>
-					Education & Cetifications
+					In the ever-evolving world of technology, I am committed to
+					continuous growth and learning.<br /><br />Through a
+					combination of formal education, specialized certifications,
+					and hands-on experience, I strive to stay ahead of the curve
+					and bring cutting-edge knowledge to every project I
+					undertake.
 				</h2>
 			</div>
-			<Education />
+			<EduCategories client:visible />
 		</SectionContainer>
 		<div class="h-20"></div>
 	</main>

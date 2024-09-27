@@ -16,10 +16,21 @@ export default {
 				  "backgroundPosition": "-200% 0"
 				}
 			  }
-			}
+			}, 
+			transitionDuration: {
+				'600': '600ms',
+			  }
 		  }
 },
 	plugins: [
-		require('flowbite/plugin')
+		require('flowbite/plugin'), 
+		function({ addUtilities }) {
+			const newUtilities = {
+			  '.backface-hidden': {
+				'backface-visibility': 'hidden',
+			  },
+			}
+			addUtilities(newUtilities)
+		  }
 	],
 }
