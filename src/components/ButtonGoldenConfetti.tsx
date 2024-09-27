@@ -58,7 +58,7 @@ const ButtonAnimatedGradient = ({ text, iconId, href, pdf }: ButtonProps) => {
     };
 
 
-    const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         // Get the button's position
         const rect = e.currentTarget.getBoundingClientRect();
         const x = (rect.left + rect.width / 2) / window.innerWidth;
@@ -74,32 +74,38 @@ const ButtonAnimatedGradient = ({ text, iconId, href, pdf }: ButtonProps) => {
             ticks: 600,
             angle: 110,
         });
+
+        // Trigger download
+        if (pdf) {
+            const link = document.createElement('a');
+            link.href = href;
+            link.download = pdf;
+            link.click();
+        }
     };
 
     return (
-        <a href={href} target='_blank' download={pdf ? pdf : ''}>
-            <button
-                ref={divRef}
-                onMouseMove={handleMouseMove}
-                onFocus={handleFocus}
-                onBlur={handleBlur}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-                onClick={handleClick}
-                className='relative inline-flex h-12 items-center justify-center overflow-hidden rounded-full border border-gray-800 bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 px-6 font-medium text-gray-300 shadow-2xl transition-colors focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-gray-50'
-            >
-                <div
-                    className='pointer-events-none absolute -inset-px opacity-0 transition duration-300'
-                    style={{
-                        opacity,
-                        background: `radial-gradient(300px circle at ${position.x}px ${position.y}px, rgba(255,255,255,.1), #0000000f)`,
-                    }}
-                />
-                <div className='flex gap-2 items-center'>
-                    {IconComponent ? <IconComponent /> : null} {text}
-                </div>
-            </button>
-        </a>
+        <button
+            ref={divRef}
+            onMouseMove={handleMouseMove}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            onClick={handleClick}
+            className='relative inline-flex h-12 items-center justify-center overflow-hidden rounded-full border border-gray-800 bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 px-6 font-medium text-gray-300 shadow-2xl transition-colors focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-gray-50'
+        >
+            <div
+                className='pointer-events-none absolute -inset-px opacity-0 transition duration-300'
+                style={{
+                    opacity,
+                    background: `radial-gradient(300px circle at ${position.x}px ${position.y}px, rgba(255,255,255,.1), #0000000f)`,
+                }}
+            />
+            <div className='flex gap-2 items-center'>
+                {IconComponent ? <IconComponent /> : null} {text}
+            </div>
+        </button>
     );
 };
 

@@ -2,14 +2,33 @@ import { useState, useCallback, useRef, useEffect } from 'react'
 import { categories } from '../data/categories'
 import CloseIcon from './icons/ClosingIcon'
 
-const FlipCard = ({ category, index, isFlipped, onFlip }) => {
+type Category = {
+    name: string;
+    elements: {
+        type: string;
+        institution: string;
+        logo: string;
+        program: string;
+        date: string;
+        certificate: string;
+    }[];
+};
+
+interface FlipCardProps {
+    category: Category;
+    index: number;
+    isFlipped: boolean;
+    onFlip: (index: number) => void;
+}
+
+const FlipCard: React.FC<FlipCardProps> = ({ category, index, isFlipped, onFlip }) => {
     const cardRef = useRef(null);
     const innerRef = useRef(null);
 
     useEffect(() => {
         if (isFlipped && cardRef.current && innerRef.current) {
-            const card = cardRef.current;
-            const inner = innerRef.current;
+            const card = cardRef.current as HTMLElement;
+            const inner = innerRef.current as HTMLElement;
             // Resize the card to 80vw and 80vh
             if (inner) {
 
@@ -53,14 +72,17 @@ const FlipCard = ({ category, index, isFlipped, onFlip }) => {
 
 
         } else if (innerRef.current) {
-            const inner = innerRef.current;
+            const inner = innerRef.current as HTMLElement;
             inner.classList.remove('flipped-card');
 
             inner.style.transform = '';
             inner.style.width = '';
             inner.style.height = '';
             setTimeout(() => {
-                cardRef.current.style.zIndex = '10';
+                if (cardRef.current) {
+                    const card = cardRef.current as HTMLElement;
+                    card.style.zIndex = '10';
+                }
             }, 300);
 
         }
