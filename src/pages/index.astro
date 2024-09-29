@@ -14,93 +14,81 @@ import EduCategories from "../components/EduCategories.tsx";
 import type { lazy } from "astro/zod";
 ---
 
-<Layout title="My Full Stack Developer Profile Page">
-	<main>
-		<FullWidthSectionContainer class="card-content h-[100vh] w-full z-10">
-			<Card client:only="react" />
-		</FullWidthSectionContainer>
-		<SectionContainer class="text-content relative pb-20 -mt-[50vh] z-50">
-			<h1
-				class="text-6xl font-bold py-8 flex gap-x-5 text-gray-900 dark:text-white z-50"
+<Layout title="Welcome to The Fullstack">
+	<FullWidthSectionContainer class="card-content h-[100vh] w-full z-10">
+		<Card client:only="react" />
+	</FullWidthSectionContainer>
+	<SectionContainer class="text-content relative pb-20 -mt-[50vh] z-50">
+		<h1
+			class="text-6xl font-bold py-8 flex gap-x-5 text-gray-900 dark:text-white z-50"
+		>
+			Hey, I'm Alvaro <a
+				href="https://www.linkedin.com/in/alvaro-acevedo-ing/"
+				class="flex items-center"
 			>
-				Hey, I'm Alvaro <a
-					href="https://www.linkedin.com/in/alvaro-acevedo-ing/"
-					class="flex items-center"
-				>
-					<Badge>Let's work together</Badge></a
-				>
-			</h1>
-			<h2 class="text-2xl text-wrap mb-8 text-gray-900 dark:text-white">
-				As a Business Engineer and Web Developer with over 10 years of
-				experience working for startups and corporates companies, I
-				specialize in crafting unique digital products using
-				cutting-edge technologies.<br /><br />Based in Santiago, Chile <ChileanFlag
-					class="size-8 inline"
-				/>, I am committed to transforming ideas into successful
-				solutions that drive business growth.
+				<Badge>Let's work together</Badge></a
+			>
+		</h1>
+		<h2 class="text-2xl text-wrap mb-8 text-gray-900 dark:text-white">
+			As a Business Engineer and Web Developer with over 10 years of
+			experience working for startups and corporates companies, I
+			specialize in crafting unique digital products using cutting-edge
+			technologies.<br /><br />Based in Santiago, Chile <ChileanFlag
+				class="size-8 inline"
+			/>, I am committed to transforming ideas into successful solutions
+			that drive business growth.
+		</h2>
+
+		<div class="flex gap-2 flex-wrap">
+			<ButtonAnimatedGradient
+				text="LinkedIn"
+				iconId="linkedin"
+				href="https://www.linkedin.com/in/alvaro-acevedo-ing/"
+				client:load
+			/>
+			<ButtonAnimatedGradient
+				text="GitHub"
+				iconId="github"
+				href="https://github.com/Bzzmn"
+				client:load
+			/>
+		</div>
+	</SectionContainer>
+	<div class="h-20"></div>
+	<SectionContainer id="projects">
+		<div>
+			<h2
+				id="projects"
+				class="text-4xl font-bold mb-20 text-gray-900 dark:text-white"
+			>
+				Check Out My Lastest Projects:
 			</h2>
+		</div>
+		<Projects />
+	</SectionContainer>
+	<div class="h-40"></div>
+	<SectionContainer id="experience">
+		<div>
+			<h2 class="text-4xl font-bold mb-20 text-gray-900 dark:text-white">
+				My Journey:
+			</h2>
+		</div>
+		<Experience />
+	</SectionContainer>
 
-			<div class="flex gap-2 flex-wrap">
-				<ButtonAnimatedGradient
-					text="LinkedIn"
-					iconId="linkedin"
-					href="https://www.linkedin.com/in/alvaro-acevedo-ing/"
-					client:load
-				/>
-				<ButtonAnimatedGradient
-					text="GitHub"
-					iconId="github"
-					href="https://github.com/Bzzmn"
-					client:load
-				/>
-				<ButtonAnimatedGradient
-					text="alvaro.acevedo.ing@gmail.com"
-					iconId="mail"
-					href="mailto:alvaro.acevedo.ing@gmail.com"
-					client:load
-				/>
-			</div>
-		</SectionContainer>
-		<div class="h-20"></div>
-		<SectionContainer id="projects">
-			<div>
-				<h2
-					id="projects"
-					class="text-4xl font-bold mb-10 text-gray-900 dark:text-white"
-				>
-					Check My Lastest Projects:
-				</h2>
-			</div>
-			<Projects />
-		</SectionContainer>
-		<div class="h-40"></div>
-		<SectionContainer id="experience">
-			<div>
-				<h2
-					class="text-4xl font-bold mb-10 text-gray-900 dark:text-white"
-				>
-					My Journey:
-				</h2>
-			</div>
-			<Experience />
-		</SectionContainer>
-
-		<div class="h-28"></div>
-		<SectionContainer id="education">
-			<div>
-				<h2
-					class="text-4xl font-bold mb-20 text-gray-900 dark:text-white text-center"
-				>
-					In the ever-evolving world of technology, I am committed to
-					continuous growth and learning.<br /><br />Through a
-					combination of formal education, specialized certifications,
-					and hands-on experience, I strive to stay ahead of the curve
-					and bring cutting-edge knowledge to every project I
-					undertake.
-				</h2>
-			</div>
-			<EduCategories client:visible />
-		</SectionContainer>
-		<div class="h-20"></div>
-	</main>
+	<div class="h-28"></div>
+	<SectionContainer id="education">
+		<div>
+			<h2
+				class="quoted text-4xl font-bold mb-20 text-gray-900 dark:text-white text-center relative px-5 md:px-12"
+			>
+				<span class="relative z-10">
+					In the ever-evolving world of technology, continuous
+					learning is key for success.
+				</span>
+			</h2>
+		</div>
+		<EduCategories client:visible />
+	</SectionContainer>
+	<div class="h-20"></div>
 </Layout>

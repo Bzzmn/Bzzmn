@@ -4,36 +4,39 @@ import ProjectCard from "./ProjectCard.astro";
 const projects = [
   {
     title: "Spirit Store",
-    description: "Spirit Store is an advanced ecommerce platform developed with React, TypeScript, and Tailwind CSS, and hosted on Netlify. It offers a modern interface and intuitive navigation through categories and detailed product pages. It provides an efficient shopping cart and checkout process, ensuring a smooth and secure shopping experience.",
+    description:
+      "Spirit Store is an advanced ecommerce platform developed with React, TypeScript, and Tailwind CSS, and hosted on Netlify. It offers a modern interface and intuitive navigation through categories and detailed product pages. It provides an efficient shopping cart and checkout process, ensuring a smooth and secure shopping experience.",
     link: "https://spiritstore.netlify.app/",
     techs: ["React", "TypeScript", "Tailwind", "Firebase", "Netlify"],
     repolink: "https://github.com/Bzzmn/SpiritStore",
-    image: "https://general-projects-public.s3.eu-west-3.amazonaws.com/139shots_so.webp",
+    image:
+      "https://general-projects-public.s3.eu-west-3.amazonaws.com/139shots_so.webp",
   },
   {
     title: "Genzee",
-    description: "Genzee is a real estate portal tailored for Generation Z's rental preferences, featuring a minimalistic and modern style. Developed with Python, Django, and Postgres, and styled with Bootstrap, it's hosted on Render. This platform enables landlords to post properties and tenants to efficiently find and manage rental requests.",
+    description:
+      "Genzee is a real estate portal tailored for Generation Z's rental preferences, featuring a minimalistic and modern style. Developed with Python, Django, and Postgres, and styled with Bootstrap, it's hosted on Render. This platform enables landlords to post properties and tenants to efficiently find and manage rental requests.",
     link: "https://example.com",
     techs: ["Python", "Django", "Bootstrap", "Postgres", "Render"],
     repolink: "https://github.com/Bzzmn/PortalWebInmobiliario",
-    image: "https://general-projects-public.s3.eu-west-3.amazonaws.com/987shots_so.webp",
+    image:
+      "https://general-projects-public.s3.eu-west-3.amazonaws.com/987shots_so.webp",
   },
   {
     title: "SweetCake",
-    description: "SweetCake is an ecommerce site for cakes and cupcakes, developed with Python, Django, and Bootstrap, and deployed on Render. It offers registered users a personal page with exclusive deals and highlights the most visited products on the home page. Additionally, it allows full administrative management through the Django admin session.",
+    description:
+      "SweetCake is an ecommerce site for cakes and cupcakes, developed with Python, Django, and Bootstrap, and deployed on Render. It offers registered users a personal page with exclusive deals and highlights the most visited products on the home page. Additionally, it allows full administrative management through the Django admin session.",
     link: "https://sweetcake-store.onrender.com",
     techs: ["Python", "Django", "Bootstrap", "Postgres", "Render"],
     repolink: "https://github.com/Bzzmn/SweetCake-Store",
-    image: "https://general-projects-public.s3.eu-west-3.amazonaws.com/844shots_so.webp"
+    image:
+      "https://general-projects-public.s3.eu-west-3.amazonaws.com/844shots_so.webp",
   },
 ];
 ---
 
-<div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {projects.map((project) => (
-        <ProjectCard {...project} />
-        ))}
-    </div>
+<div class="flex justify-center">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    {projects.map((project) => <ProjectCard {...project} />)}
+  </div>
 </div>
-

@@ -39,10 +39,12 @@ const { title } = Astro.props;
 			</div>
 		</div>
 		<Header />
-		<main class="relative z-1">
+		<main class="relative z-0">
 			<slot />
 		</main>
-		<Footer />
+		<div class="relative z-10">
+			<Footer />
+		</div>
 		<script
 			is:inline
 			src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"
@@ -69,7 +71,8 @@ const { title } = Astro.props;
 
 	main {
 		flex: 1;
-		padding: 0 1.5rem;
+		padding: 0;
+		margin: 0;
 		overflow: hidden;
 	}
 
@@ -123,6 +126,7 @@ const { title } = Astro.props;
 			backdrop-filter 500ms ease,
 			visibility 0s;
 		pointer-events: auto;
+		z-index: 9998;
 	}
 
 	.flip-card-inner {

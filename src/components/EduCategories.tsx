@@ -33,9 +33,9 @@ const FlipCard: React.FC<FlipCardProps> = ({ category, index, isFlipped, onFlip 
             if (inner) {
 
                 inner.classList.add('flipped-card');
-                inner.style.width = '80vw';
-                inner.style.height = '80vh';
-                inner.style.maxWidth = '500px';
+                inner.style.width = '90vw';
+                inner.style.height = '90vh';
+                inner.style.maxWidth = '640px';
                 inner.style.maxHeight = '500px';
                 card.style.zIndex = '9998';
             }
@@ -55,8 +55,8 @@ const FlipCard: React.FC<FlipCardProps> = ({ category, index, isFlipped, onFlip 
 
             // Calculate the center of the resized card
             // const offset = window.innerWidth * 0.8
-            const offsetX = window.innerWidth * 0.8 > 500 ? 500 : window.innerWidth * 0.8
-            const offsetY = window.innerHeight * 0.8 > 500 ? 500 : window.innerHeight * 0.8
+            const offsetX = window.innerWidth * 0.9 > 640 ? 640 : window.innerWidth * 0.9
+            const offsetY = window.innerHeight * 0.9 > 500 ? 500 : window.innerHeight * 0.9
             const cardCenterX = rect.left + offsetX / 2;
             const cardCenterY = rect.top + offsetY / 2;
             const cardTop = rect.top + viewportTop
