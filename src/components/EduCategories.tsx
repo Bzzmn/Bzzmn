@@ -50,15 +50,12 @@ const FlipCard: React.FC<FlipCardProps> = ({ category, index, isFlipped, onFlip 
 
             // Calculate the center of the viewport, accounting for scrollbar
             const viewportCenterX = (window.innerWidth - scrollbarWidth) / 2;
-            const viewportCenterY = window.innerHeight / 2;
             const viewportTop = window.scrollY
 
             // Calculate the center of the resized card
             // const offset = window.innerWidth * 0.8
             const offsetX = window.innerWidth * 0.9 > 640 ? 640 : window.innerWidth * 0.9
-            const offsetY = window.innerHeight * 0.9 > 500 ? 500 : window.innerHeight * 0.9
             const cardCenterX = rect.left + offsetX / 2;
-            const cardCenterY = rect.top + offsetY / 2;
             const cardTop = rect.top + viewportTop
 
             // Calculate the translation needed to center the card

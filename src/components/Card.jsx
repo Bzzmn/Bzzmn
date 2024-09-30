@@ -1,4 +1,4 @@
-import * as THREE from 'three'
+import { Vector3, CatmullRomCurve3, RepeatWrapping, Vector2 } from 'three'
 import { useEffect, useRef, useState } from 'react'
 import { Canvas, extend, useThree, useFrame } from '@react-three/fiber'
 import { useGLTF, useTexture, Environment, Lightformer } from '@react-three/drei'
@@ -28,12 +28,12 @@ export default function App() {
 
 function Band({ maxSpeed = 50, minSpeed = 10 }) {
     const band = useRef(), fixed = useRef(), j1 = useRef(), j2 = useRef(), j3 = useRef(), card = useRef()
-    const vec = new THREE.Vector3(), ang = new THREE.Vector3(), rot = new THREE.Vector3(), dir = new THREE.Vector3()
+    const vec = new Vector3(), ang = new Vector3(), rot = new Vector3(), dir = new Vector3()
     const segmentProps = { type: 'dynamic', canSleep: true, colliders: false, angularDamping: 2, linearDamping: 2 }
     const { nodes, materials } = useGLTF('/images/card_the_fullstack.glb')
     const texture = useTexture('/images/band.jpg')
     const { width, height } = useThree((state) => state.size)
-    const [curve] = useState(() => new THREE.CatmullRomCurve3([new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()]))
+    const [curve] = useState(() => new CatmullRomCurve3([new Vector3(), new Vector3(), new Vector3(), new Vector3()]))
     const [dragged, setDragged] = useState(false)
     const [isTouchDevice, setIsTouchDevice] = useState(false)
     const [hovered, setHovered] = useState(false)
@@ -66,7 +66,7 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
     const handlePointerDown = (e) => {
         if (!isTouchDevice) {
             e.target.setPointerCapture(e.pointerId)
-            drag(new THREE.Vector3().copy(e.point).sub(vec.copy(card.current.translation())))
+            drag(new Vector3().copy(e.point).sub(vec.copy(card.current.translation())))
         }
     }
 
@@ -81,7 +81,7 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
         console.log('Touch start event triggered')
         const touchPos = getTouchPos(e)
         setTouchStartPosition(touchPos)
-        drag(new THREE.Vector3().copy(card.current.translation()))
+        drag(new Vector3().copy(card.current.translation()))
     }
 
     const TOUCH_SENSITIVITY = 3
@@ -96,7 +96,7 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
             const touchPos = getTouchPos(e)
             const deltaX = (touchPos.x - touchStartPosition.x) * TOUCH_SENSITIVITY
             const deltaY = (touchPos.y - touchStartPosition.y) * TOUCH_SENSITIVITY
-            const newPosition = new THREE.Vector3(
+            const newPosition = new Vector3(
                 dragged.x + deltaX,
                 dragged.y + deltaY,
                 dragged.z
@@ -149,7 +149,7 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
         }
         if (fixed.current) {
             ;[j1, j2].forEach((ref) => {
-                if (!ref.current.lerped) ref.current.lerped = new THREE.Vector3().copy(ref.current.translation())
+                if (!ref.current.lerped) ref.current.lerped = new Vector3().copy(ref.current.translation())
                 const clampedDistance = Math.max(0.1, Math.min(1, ref.current.lerped.distanceTo(ref.current.translation())))
                 ref.current.lerped.lerp(ref.current.translation(), delta * (minSpeed + clampedDistance * (maxSpeed - minSpeed)))
             })
@@ -165,7 +165,7 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
     })
 
     curve.curveType = 'chordal'
-    texture.wrapS = texture.wrapT = THREE.RepeatWrapping
+    texture.wrapS = texture.wrapT = RepeatWrapping
 
     return (
         <>
@@ -211,7 +211,7 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
 }
 
 const getTouchPos = (e) => {
-    return new THREE.Vector2(
+    return new Vector2(
         (e.touches[0].clientX / window.innerWidth) * 2 - 1,
         -(e.touches[0].clientY / window.innerHeight) * 2 + 1
     );

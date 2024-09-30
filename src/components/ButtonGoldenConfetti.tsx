@@ -4,8 +4,6 @@ import LinkedinIcon from './icons/LinkedinIcon.tsx';
 import GithubIcon from './icons/GithubIcon.tsx';
 import MailIcon from './icons/MailIcon.tsx';
 import DownloadIcon from './icons/DownloadIcon.tsx';
-
-import type { Options as ConfettiOptions } from 'canvas-confetti';
 import confetti from 'canvas-confetti';
 
 interface ButtonProps {
