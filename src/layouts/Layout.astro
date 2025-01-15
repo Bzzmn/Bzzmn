@@ -2,7 +2,7 @@
 import "@fontsource-variable/onest";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-
+import Chat from "../components/Chat.jsx";
 interface Props {
 	title: string;
 }
@@ -50,6 +50,7 @@ const { title } = Astro.props;
 			src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"
 		></script>
 		<script src="/js/theme-toggle.js" is:inline></script>
+		<Chat client:load />
 	</body>
 </html>
 

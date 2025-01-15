@@ -6,10 +6,28 @@ export const categories = [
           type: "Specialization Course",
           institution: "Coderhouse",
           logo: "/images/edu-logos/coderhouse_logo.jpeg",
-          program: "Advanced Backend Development I",
+          program: "Backend Testing and Escalation",
+          date: "Dec 2024",
+          certificate:
+              "https://pub.coderhouse.com/legacy-certificates/67744b88f3ef146bb345189f",
+        },
+        {
+          type: "Specialization Course",
+          institution: "Coderhouse",
+          logo: "/images/edu-logos/coderhouse_logo.jpeg",
+          program: "Backend Desingn and Architecture",
+          date: "Oct 2024",
+          certificate:
+              "https://pub.coderhouse.com/legacy-certificates/671d86c7c77ea90692575fd0",
+        },
+        {
+          type: "Specialization Course",
+          institution: "Coderhouse",
+          logo: "/images/edu-logos/coderhouse_logo.jpeg",
+          program: "Advanced Backend Development",
           date: "Aug 2024",
           certificate:
-              "https://www.coderhouse.com/cl/certificados/66c25d09c9341672ee0bd5df",
+              "https://pub.coderhouse.com/legacy-certificates/66c25d09c9341672ee0bd5df",
         },
         {
           type: "Specialization Course",
@@ -24,10 +42,19 @@ export const categories = [
           type: "Specialization Course",
           institution: "Coderhouse",
           logo: "/images/edu-logos/coderhouse_logo.jpeg",
-          program: "React JS",
+          program: "React Frontend Development",
           date: "May 2024",
           certificate:
-              "https://general-projects-public.s3.eu-west-3.amazonaws.com/reactjs_665bb3f07a43e34378945374.webp",
+              "https://pub.coderhouse.com/legacy-certificates/665bb3f17a43e3a38b94538b",
+        },
+        {
+          type: "Specialization Course",
+          institution: "Coderhouse",
+          logo: "/images/edu-logos/coderhouse_logo.jpeg",
+          program: "Angular Frontend Development",
+          date: "Mar 2024",
+          certificate:
+              "https://pub.coderhouse.com/legacy-certificates/671dd4bbb7b360a7d8727f5c",
         },
         {
           type: "Specialization Course",
@@ -36,13 +63,22 @@ export const categories = [
           program: "JavaScript",
           date: "Mar 2024",
           certificate:
-              "https://general-projects-public.s3.eu-west-3.amazonaws.com/javascript_6616df7dd362da3865693edb.webp",
+              "https://pub.coderhouse.com/legacy-certificates/6616df7dd362da3865693edb",
+        },
+        {
+          type: "Specialization Course",
+          institution: "Coderhouse",
+          logo: "/images/edu-logos/coderhouse_logo.jpeg",
+          program: "Web Development",
+          date: "Dec 2023",
+          certificate:
+              "https://pub.coderhouse.com/legacy-certificates/659bfdafffe09859231f794f",
         },
         {
           type: "Specialization Course",
           institution: "University of Michigan",
           logo: "/images/edu-logos/michigan.jpeg",
-          program: "Programming for Everybody (Getting Started with Python)",
+          program: "Python Programming",
           date: "Jul 2019",
           certificate:
               "https://www.coursera.org/account/accomplishments/certificate/EZRVNQQGX34M",

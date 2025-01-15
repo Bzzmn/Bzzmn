@@ -32,7 +32,7 @@ export default defineConfig({
       chunkSizeWarningLimit: 1000, // Increase to 1000 kB or any suitable value
     },
     ssr: {
-      noExternal: ['three', '@react-three/fiber', '@react-three/drei', '@react-three/rapier'],
+      noExternal: ['three', '@react-three/fiber', '@react-three/drei', '@react-three/rapier', '@n8n/chat'],
     },
   },
 });
