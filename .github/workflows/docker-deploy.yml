@@ -8,7 +8,7 @@ on:
 
 env:
   DOCKER_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/portfolio-dev
-  
+
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
@@ -33,22 +33,3 @@ jobs:
           tags: |
             ${{ env.DOCKER_IMAGE }}:latest
             ${{ env.DOCKER_IMAGE }}:${{ github.sha }}
-          cache-from: type=registry,ref=${{ env.DOCKER_IMAGE }}:buildcache
-          cache-to: type=registry,ref=${{ env.DOCKER_IMAGE }}:buildcache,mode=max
-
-#   deploy-to-coolify:
-#     needs: build-and-push
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Deploy to Coolify
-#         uses: usebottles/coolify-deployment-action@v1
-#         with:
-#           deployment_url: ${{ secrets.COOLIFY_URL }}
-#           token: ${{ secrets.COOLIFY_TOKEN }}
-#           resource_id: "your-resource-id" # Reemplaza con tu ID de recurso de Coolify
-#           force_deployment: true
-          
-#       - name: Deployment Status
-#         run: |
-#           echo "Deployment to Coolify completed"
-#           echo "Image: ${{ env.DOCKER_IMAGE }}:${{ github.sha }}" 
