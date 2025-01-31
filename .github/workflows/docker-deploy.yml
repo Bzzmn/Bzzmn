@@ -33,3 +33,33 @@ jobs:
           tags: |
             ${{ env.DOCKER_IMAGE }}:latest
             ${{ env.DOCKER_IMAGE }}:${{ github.sha }}
+
+  deploy:
+    name: Deploy to Coolify
+    needs: build-and-push
+    if: |
+      needs.build-and-push.result == 'success' && 
+      (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v'))
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Trigger deployment in Coolify
+        run: |
+          curl --request GET "${{ secrets.COOLIFY_WEBHOOK }}" \
+               --header "Authorization: Bearer ${{ secrets.COOLIFY_TOKEN }}"
+
+      - name: Verify Deployment
+        run: |
+          echo "🚀 New deployment details:"
+          echo "- Image: ${{ env.DOCKER_IMAGE }}"
+          echo "- Tag: ${{ github.sha }}"
+          echo "⏳ Waiting for Coolify to pull and start the new container..."
+          sleep 30
+
+      - name: Deployment Summary
+        if: always()
+        run: |
+          echo "### Deployment Status 🚀" >> $GITHUB_STEP_SUMMARY
+          echo "- **Image**: ${{ env.DOCKER_IMAGE }}:${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Timestamp**: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Build completed successfully" >> $GITHUB_STEP_SUMMARY
