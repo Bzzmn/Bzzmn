@@ -3,16 +3,13 @@ import { Canvas } from '@react-three/fiber';
 import { Physics } from '@react-three/rapier';
 import Badge from './Badge';
 import { Environment, Lightformer } from '@react-three/drei';
-import { useControls } from 'leva';
 
 export default function CanvasComponent() {
-    const { debug } = useControls({ debug: false });
 
     return (
         <Canvas>
             <ambientLight intensity={Math.PI} />
             <Physics
-                debug={debug}
                 interpolate
                 gravity={[0, -38, 0]}
                 timeStep={1 / 60}

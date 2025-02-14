@@ -12,6 +12,10 @@ import {
 } from '@react-three/rapier';
 import { MeshLineGeometry, MeshLineMaterial } from 'meshline';
 import { useGLTF, useTexture } from '@react-three/drei';
+import { useDragTracker } from '../hooks/useDragTracker';
+import { DragStats } from './DragStats';
+
+
 
 extend({ MeshLineGeometry, MeshLineMaterial });
 useGLTF.preload(
@@ -44,7 +48,7 @@ export default function Badge({ maxSpeed = 50, minSpeed = 10 }) {
     const ang = new THREE.Vector3();
     const rot = new THREE.Vector3();
     const dir = new THREE.Vector3();
-    const [dragged, drag] = useState<THREE.Vector3 | false>(false);
+    const [dragged, setDragged] = useState(false);
     const [hovered, hover] = useState(false);
 
     const { nodes, materials } = useGLTF(
@@ -76,12 +80,113 @@ export default function Badge({ maxSpeed = 50, minSpeed = 10 }) {
         [0, 1.45, 0],
     ]);
 
+    const [dragStats, setDragStats] = useState({
+        count: 0,
+        totalDistance: 0,
+        lastPosition: null,
+        currentDistance: 0
+    });
+
+    const trackDragDistance = (currentPoint) => {
+        if (!dragStats.lastPosition) {
+            setDragStats(prev => ({
+                ...prev,
+                lastPosition: currentPoint
+            }));
+            return;
+        }
+
+        const distance = currentPoint.distanceTo(dragStats.lastPosition);
+        setDragStats(prev => ({
+            count: prev.count,
+            totalDistance: prev.totalDistance + distance,
+            lastPosition: currentPoint,
+            currentDistance: distance
+        }));
+    };
+
+    const drag = (value) => {
+        if (value) {
+            // Inicio del arrastre
+            setDragStats(prev => ({
+                ...prev,
+                count: prev.count + 1,
+                lastPosition: null,
+                currentDistance: 0
+            }));
+        } else {
+            // Fin del arrastre
+            console.log('Drag Stats:', {
+                totalDrags: dragStats.count,
+                totalDistance: dragStats.totalDistance.toFixed(2),
+                averageDistance: (dragStats.totalDistance / dragStats.count).toFixed(2)
+            });
+        }
+        setDragged(value);
+    };
+
     useEffect(() => {
         if (hovered) {
             document.body.style.cursor = dragged ? 'grabbing' : 'grab';
             return () => void (document.body.style.cursor = 'auto');
         }
     }, [hovered, dragged]);
+
+    useEffect(() => {
+        const handleMouseMove = (e) => {
+            if (dragged) {
+                const element = document.elementFromPoint(e.clientX, e.clientY);
+                if (element) {
+                    const computedStyle = window.getComputedStyle(element);
+                    if (computedStyle.cursor === 'pointer' || computedStyle.cursor === 'default') {
+                        drag(null);
+                        if (card.current) {
+                            card.current.wakeUp();
+                        }
+                    } else {
+                        // Trackear el movimiento durante el arrastre
+                        const currentPoint = new THREE.Vector3(e.clientX, e.clientY, 0);
+                        trackDragDistance(currentPoint);
+                    }
+                }
+            }
+        };
+
+        const handleMouseLeave = () => {
+            if (dragged) {
+                drag(null);
+                if (card.current) {
+                    card.current.wakeUp();
+                }
+            }
+        };
+
+        window.addEventListener('mousemove', handleMouseMove);
+        document.addEventListener('mouseleave', handleMouseLeave);
+
+        return () => {
+            window.removeEventListener('mousemove', handleMouseMove);
+            document.removeEventListener('mouseleave', handleMouseLeave);
+        };
+    }, [dragged, dragStats]);
+
+    // Opcional: Guardar estadísticas en localStorage
+    useEffect(() => {
+        const savedStats = localStorage.getItem('badgeDragStats');
+        if (savedStats) {
+            setDragStats(prev => ({
+                ...prev,
+                ...JSON.parse(savedStats)
+            }));
+        }
+
+        return () => {
+            localStorage.setItem('badgeDragStats', JSON.stringify({
+                count: dragStats.count,
+                totalDistance: dragStats.totalDistance
+            }));
+        };
+    }, []);
 
     useFrame((state, delta) => {
         if (
@@ -168,7 +273,7 @@ export default function Badge({ maxSpeed = 50, minSpeed = 10 }) {
                         position={[0, -1.2, -0.05]}
                         onPointerOver={() => hover(true)}
                         onPointerOut={() => hover(false)}
-                        onPointerUp={() => drag(false)}
+                        onPointerUp={() => drag(null)}
                         onPointerDown={(evt) =>
                             card.current &&
                             drag(

@@ -13,17 +13,21 @@ import CanvasComponent from "../components/Canvas";
 ---
 
 <Layout title="Welcome to The Fullstack">
-	<FullWidthSectionContainer class="card-content h-[100vh] w-full z-10 absolute">
+	<FullWidthSectionContainer 
+		class="card-content h-[100vh] w-full z-10 absolute select-none pointer-events-auto" 
+		style={{ touchAction: 'none' }}
+	>
 		<CanvasComponent client:only="react" />
-		<!-- <Card client:only="react" /> -->
 	</FullWidthSectionContainer>
-	<SectionContainer class="hero text-content relative pb-20 mt-[60vh] z-50">
+	<SectionContainer 
+		class="hero text-content relative pb-20 z-50 pointer-events-none mt-[60vh]"
+	>
 		<h1
 			class="text-6xl font-bold py-8 flex gap-x-5 text-gray-900 dark:text-white z-50"
 		>
 			Hey, I'm Alvaro <a
 				href="https://www.linkedin.com/in/alvaro-acevedo-ing/"
-				class="flex items-center"
+				class="flex items-center pointer-events-auto"
 			>
 				<Badge>Let's work together</Badge></a
 			>
@@ -99,3 +103,13 @@ import CanvasComponent from "../components/Canvas";
 	</SectionContainer>
 	<div class="h-20"></div>
 </Layout>
+
+<style>
+	:global(*) {
+		touch-action: none;
+		user-select: none;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+	}
+</style>
