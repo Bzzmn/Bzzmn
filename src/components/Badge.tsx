@@ -153,9 +153,10 @@ export default function Badge({ maxSpeed = 50, minSpeed = 10 }) {
     }, [hovered, dragged]);
 
     useEffect(() => {
-        const handleMouseMove = (e) => {
-            if (dragged) {
-                const element = document.elementFromPoint(e.clientX, e.clientY);
+        const handleTouchMove = (e: TouchEvent) => {
+            if (dragged && e.touches[0]) {
+                const touch = e.touches[0];
+                const element = document.elementFromPoint(touch.clientX, touch.clientY);
                 if (element) {
                     const computedStyle = window.getComputedStyle(element);
                     if (computedStyle.cursor === 'pointer' || computedStyle.cursor === 'default') {
@@ -165,14 +166,14 @@ export default function Badge({ maxSpeed = 50, minSpeed = 10 }) {
                         }
                     } else {
                         // Trackear el movimiento durante el arrastre
-                        const currentPoint = new THREE.Vector3(e.clientX, e.clientY, 0);
+                        const currentPoint = new THREE.Vector3(touch.clientX, touch.clientY, 0);
                         trackDragDistance(currentPoint);
                     }
                 }
             }
         };
 
-        const handleMouseLeave = () => {
+        const handleTouchEnd = () => {
             if (dragged) {
                 drag(null);
                 if (card.current) {
@@ -181,12 +182,14 @@ export default function Badge({ maxSpeed = 50, minSpeed = 10 }) {
             }
         };
 
-        window.addEventListener('mousemove', handleMouseMove);
-        document.addEventListener('mouseleave', handleMouseLeave);
+        window.addEventListener('touchmove', handleTouchMove);
+        window.addEventListener('touchend', handleTouchEnd);
+        window.addEventListener('touchcancel', handleTouchEnd);
 
         return () => {
-            window.removeEventListener('mousemove', handleMouseMove);
-            document.removeEventListener('mouseleave', handleMouseLeave);
+            window.removeEventListener('touchmove', handleTouchMove);
+            window.removeEventListener('touchend', handleTouchEnd);
+            window.removeEventListener('touchcancel', handleTouchEnd);
         };
     }, [dragged, dragStats]);
 
@@ -302,6 +305,14 @@ export default function Badge({ maxSpeed = 50, minSpeed = 10 }) {
                                     .sub(vec.copy(card.current.translation()))
                             )
                         }
+                        onTouchStart={(evt) => {
+                            evt.preventDefault();
+                            if (card.current) {
+                                const touch = evt.touches[0];
+                                const point = new THREE.Vector3(touch.clientX, touch.clientY, 0);
+                                drag(point.sub(vec.copy(card.current.translation())));
+                            }
+                        }}
                     >
                         {/* @ts-expect-error geometry/map are not declared? */}
                         <mesh geometry={nodes.card.geometry}>
