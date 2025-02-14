@@ -21,9 +21,6 @@ extend({ MeshLineGeometry, MeshLineMaterial });
 useGLTF.preload(
     '/images/nueva_card_1.glb'
 );
-useTexture.preload(
-    '/images/band.png'
-);
 
 // Make RigidBody physics a bit more realistic
 const segmentProps = {
@@ -50,13 +47,36 @@ export default function Badge({ maxSpeed = 50, minSpeed = 10 }) {
     const dir = new THREE.Vector3();
     const [dragged, setDragged] = useState(false);
     const [hovered, hover] = useState(false);
+    const [bandColor, setBandColor] = useState('black');
 
     const { nodes, materials } = useGLTF(
         '/images/nueva_card_1.glb'
     );
-    const texture = useTexture(
-        '/images/band.png'
-    );
+
+    // Listen for theme changes and update band color
+    useEffect(() => {
+        const updateColor = () => {
+            const isDark = document.documentElement.classList.contains('dark');
+            setBandColor(isDark ? 'black' : 'white');
+        };
+
+        updateColor();
+
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.attributeName === 'class') {
+                    updateColor();
+                }
+            });
+        });
+
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['class']
+        });
+
+        return () => observer.disconnect();
+    }, []);
 
     // A Catmull-Rom curve
     const [curve] = useState(
@@ -248,7 +268,7 @@ export default function Badge({ maxSpeed = 50, minSpeed = 10 }) {
 
     return (
         <>
-            <group position={[0, 5, 0]}>
+            <group position={[0, 6.3, 3]}>
                 {/* Band */}
                 <RigidBody ref={fixed} type="fixed" position={[0, 0, 0]} />
                 <RigidBody position={[0.5, 0, 0]} {...segmentProps} ref={j1}>
@@ -309,12 +329,9 @@ export default function Badge({ maxSpeed = 50, minSpeed = 10 }) {
             <mesh ref={band}>
                 <meshLineGeometry />
                 <meshLineMaterial
-                    color="black"
+                    color={bandColor}
                     depthTest={false}
-                    useMap={0}
-                    map={texture}
-                    repeat={new THREE.Vector2(2, 1)}
-                    lineWidth={0.2}
+                    lineWidth={0.6}
                 />
             </mesh>
         </>

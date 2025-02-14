@@ -5,9 +5,15 @@ import Badge from './Badge';
 import { Environment, Lightformer } from '@react-three/drei';
 
 export default function CanvasComponent() {
-
     return (
-        <Canvas>
+        <Canvas
+            camera={{
+                position: [0, 0, 15],
+                fov: 45,
+                near: 0.1,
+                far: 200
+            }}
+        >
             <ambientLight intensity={Math.PI} />
             <Physics
                 interpolate

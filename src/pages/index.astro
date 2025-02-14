@@ -14,10 +14,10 @@ import CanvasComponent from "../components/Canvas";
 
 <Layout title="Welcome to The Fullstack">
 	<FullWidthSectionContainer 
-		class="card-content h-[100vh] w-full z-10 absolute select-none pointer-events-auto" 
+		class="card-content h-[130vh] w-full z-10 absolute select-none pointer-events-auto" 
 		style={{ touchAction: 'none' }}
 	>
-		<CanvasComponent client:only="react" />
+		<CanvasComponent class="h-full" client:only="react" />
 	</FullWidthSectionContainer>
 	<SectionContainer 
 		class="hero text-content relative pb-20 z-50 pointer-events-none mt-[60vh]"
