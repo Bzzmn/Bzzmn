@@ -2,7 +2,6 @@
 import "@fontsource-variable/onest";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import Chat from "../components/Chat.jsx";
 interface Props {
 	title: string;
 }
@@ -18,7 +17,7 @@ const { title } = Astro.props;
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
-		<script>
+		<script is:inline>
 			// Inline script to set initial theme
 			if (
 				localStorage.getItem("color-theme") === "dark" ||

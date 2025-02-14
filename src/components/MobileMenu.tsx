@@ -63,7 +63,7 @@ const MobileMenu = () => {
                 <ul className="font-medium flex flex-col-reverse p-4 mt-16">
                     <li>
                         <div className="py-2 px-3">
-                            <ThemeToggler client:load />
+                            <ThemeToggler />
                         </div>
                     </li>
                     <li>

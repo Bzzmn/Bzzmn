@@ -59,27 +59,33 @@ const BACKEND_URL = import.meta.env.PUBLIC_BACKEND_URL;
     </main>
 </Layout>
 
-<script define:vars={{ BACKEND_URL }}>
-    const form = document.getElementById("unsubscribeForm") as HTMLFormElement;
-    const messageDiv = document.getElementById("message") as HTMLDivElement;
-    const tokenInput = document.getElementById("token") as HTMLInputElement;
+<script is:inline define:vars={{ BACKEND_URL }}>
+    const form = document.getElementById("unsubscribeForm");
+    const messageDiv = document.getElementById("message");
+    const tokenInput = document.getElementById("token");
 
-    const showMessage = (message: string, isError: boolean) => {
-        messageDiv.textContent = message;
-        messageDiv.classList.remove(
-            "hidden",
-            "bg-green-100",
-            "text-green-700",
-            "bg-red-100",
-            "text-red-700",
-        );
-        messageDiv.classList.add(
-            isError ? "bg-red-100 text-red-700" : "bg-green-100 text-green-700",
-        );
+    const showMessage = (message, isError) => {
+        if (messageDiv) {
+            messageDiv.textContent = message;
+            messageDiv.classList.remove(
+                "hidden",
+                "bg-green-100",
+                "text-green-700",
+                "bg-red-100",
+                "text-red-700",
+            );
+            messageDiv.classList.add(
+                isError
+                    ? "bg-red-100 text-red-700"
+                    : "bg-green-100 text-green-700",
+            );
+        }
     };
 
     form?.addEventListener("submit", async (e) => {
         e.preventDefault();
+        const token = tokenInput?.value;
+        if (!token) return;
 
         try {
             const response = await fetch(
@@ -90,7 +96,7 @@ const BACKEND_URL = import.meta.env.PUBLIC_BACKEND_URL;
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
-                        token: tokenInput.value,
+                        token: token,
                     }),
                 },
             );
@@ -102,7 +108,7 @@ const BACKEND_URL = import.meta.env.PUBLIC_BACKEND_URL;
                     "Te has desuscrito exitosamente del newsletter.",
                     false,
                 );
-                form.style.display = "none";
+                if (form) form.style.display = "none";
             } else {
                 showMessage(
                     data.message || "Error al procesar la solicitud.",

@@ -7,21 +7,29 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 # Copy project files
 COPY . .
 
 # Build the project
-RUN npm run build
+RUN npm run build || exit 1
 
 # Production stage
-FROM nginx:alpine
+FROM node:20-alpine
 
-# Copy built assets from build stage
-COPY --from=build /app/dist /usr/share/nginx/html
+WORKDIR /app
+COPY --from=build /app/dist /app/dist
+COPY --from=build /app/package.json /app/package.json
+
+# Install production dependencies only
+RUN npm install --production --legacy-peer-deps
+
+# Set default port
+ENV PORT=3000
 
 # Expose port
-EXPOSE 80
+EXPOSE 3000
 
-CMD ["nginx", "-g", "daemon off;"] 
+# Start the server
+CMD ["npm", "start"] 

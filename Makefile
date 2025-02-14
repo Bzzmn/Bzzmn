@@ -28,7 +28,7 @@ check-port:
 # Ejecutar el contenedor
 run: stop check-port
 	@echo "$(GREEN)Running container on port $(PORT)...$(NC)"
-	docker run -d -p $(PORT):80 --name $(CONTAINER_NAME) $(IMAGE_NAME)
+	docker run -d -p $(PORT):3000 --name $(CONTAINER_NAME) $(IMAGE_NAME)
 	@echo "$(GREEN)Application is running at http://localhost:$(PORT)$(NC)"
 
 # Detener y eliminar el contenedor

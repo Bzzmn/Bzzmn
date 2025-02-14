@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 
 import tailwind from "@astrojs/tailwind";
 import react from '@astrojs/react';
+import node from "@astrojs/node";
 
 // https://astro.build/config
 export default defineConfig({
@@ -9,6 +10,10 @@ export default defineConfig({
     tailwind(),
     react()
   ],
+  output: 'static',
+  adapter: node({
+    mode: 'standalone'
+  }),
   vite: {
     build: {
       rollupOptions: {
@@ -20,20 +25,11 @@ export default defineConfig({
             'react-three-rapier': ['@react-three/rapier'],
           },
         },
-        onwarn(warning, warn) {
-          if (warning.code === 'EVAL' && 
-             (warning.id.includes('three-stdlib/libs/lottie.js') || 
-              warning.id.includes('@chevrotain/utils/lib/src/to-fast-properties.js'))) {
-            return;
-          }
-          warn(warning);
-        },
       },
-      chunkSizeWarningLimit: 1000, // Increase to 1000 kB or any suitable value
+      chunkSizeWarningLimit: 1000,
     },
     ssr: {
       noExternal: ['three', '@react-three/fiber', '@react-three/drei', '@react-three/rapier', '@n8n/chat'],
     },
   },
-  output: 'static',
 });
