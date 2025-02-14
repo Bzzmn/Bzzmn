@@ -1,3 +1,4 @@
+import React from 'react';
 import { Vector3, CatmullRomCurve3, RepeatWrapping, Vector2 } from 'three'
 import { useEffect, useRef, useState } from 'react'
 import { Canvas, extend, useThree, useFrame } from '@react-three/fiber'
@@ -5,7 +6,7 @@ import { useGLTF, useTexture, Environment, Lightformer } from '@react-three/drei
 import { BallCollider, CuboidCollider, Physics, RigidBody, useRopeJoint, useSphericalJoint } from '@react-three/rapier'
 import { MeshLineGeometry, MeshLineMaterial } from 'meshline'
 
-extend({ MeshLineGeometry, MeshLineMaterial })
+extend({ MeshLineGeometry, MeshLineMaterial });
 useGLTF.preload('/images/nueva_card_1.glb')
 useTexture.preload('/images/band.png')
 useTexture.preload('/images/band_white.png')
@@ -17,7 +18,7 @@ export default function App() {
             <Physics interpolate gravity={[0, -40, 0]} timeStep={1 / 60}>
                 <Band />
             </Physics>
-            <Environment background={false}>
+            <Environment background={true}>
                 <Lightformer intensity={2} color="white" position={[0, -1, 5]} rotation={[0, 0, Math.PI / 3]} scale={[100, 0.1, 1]} />
                 <Lightformer intensity={3} color="white" position={[-1, -1, 1]} rotation={[0, 0, Math.PI / 3]} scale={[100, 0.1, 1]} />
                 <Lightformer intensity={3} color="white" position={[1, 1, 1]} rotation={[0, 0, Math.PI / 3]} scale={[100, 0.1, 1]} />

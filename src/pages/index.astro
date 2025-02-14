@@ -5,17 +5,19 @@ import Experience from "../components/Experience.astro";
 import SectionContainer from "../components/SectionContainer.astro";
 import Projects from "../components/Projects.astro";
 import ChileanFlag from "../components/icons/ChileanFlag.astro";
-import ButtonAnimatedGradient from "../components/ButtonAnimatedGradient.tsx";
+import ButtonAnimatedGradient from "../components/ButtonAnimatedGradient";
 import FullWidthSectionContainer from "../components/FullWidthSectionContainer.astro";
-import EduCategories from "../components/EduCategories.tsx";
+import EduCategories from "../components/EduCategories";
 import Card from "../components/Card.jsx";
+import CanvasComponent from "../components/Canvas";
 ---
 
 <Layout title="Welcome to The Fullstack">
-	<FullWidthSectionContainer class="card-content h-[100vh] w-full z-10">
-		<Card client:only="react" />
+	<FullWidthSectionContainer class="card-content h-[100vh] w-full z-10 absolute">
+		<CanvasComponent client:only="react" />
+		<!-- <Card client:only="react" /> -->
 	</FullWidthSectionContainer>
-	<SectionContainer class="hero text-content relative pb-20 -mt-[40vh] z-50">
+	<SectionContainer class="hero text-content relative pb-20 mt-[60vh] z-50">
 		<h1
 			class="text-6xl font-bold py-8 flex gap-x-5 text-gray-900 dark:text-white z-50"
 		>
