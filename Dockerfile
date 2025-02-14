@@ -7,29 +7,32 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install --legacy-peer-deps
+RUN npm install
 
 # Copy project files
 COPY . .
 
 # Build the project
-RUN npm run build || exit 1
+RUN npm run build
 
 # Production stage
 FROM node:20-alpine
 
 WORKDIR /app
+
+# Copy built assets from build stage
 COPY --from=build /app/dist /app/dist
 COPY --from=build /app/package.json /app/package.json
 
 # Install production dependencies only
-RUN npm install --production --legacy-peer-deps
-
-# Set default port
-ENV PORT=3000
+RUN npm install --omit=dev
 
 # Expose port
 EXPOSE 3000
 
+# Set environment variables
+ENV HOST=0.0.0.0
+ENV PORT=3000
+
 # Start the server
-CMD ["npm", "start"] 
+CMD ["node", "./dist/server/entry.mjs"] 

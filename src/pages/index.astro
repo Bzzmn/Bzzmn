@@ -8,7 +8,6 @@ import ChileanFlag from "../components/icons/ChileanFlag.astro";
 import ButtonAnimatedGradient from "../components/ButtonAnimatedGradient";
 import FullWidthSectionContainer from "../components/FullWidthSectionContainer.astro";
 import EduCategories from "../components/EduCategories";
-import Card from "../components/Card.jsx";
 import CanvasComponent from "../components/Canvas";
 ---
 
@@ -17,7 +16,7 @@ import CanvasComponent from "../components/Canvas";
 		class="card-content h-[130vh] w-full z-10 absolute select-none pointer-events-auto" 
 		style={{ touchAction: 'none' }}
 	>
-		<CanvasComponent class="h-full" client:only="react" />
+		<CanvasComponent client:only="react" />
 	</FullWidthSectionContainer>
 	<SectionContainer 
 		class="hero text-content relative pb-20 z-50 pointer-events-none mt-[60vh]"
@@ -43,7 +42,7 @@ import CanvasComponent from "../components/Canvas";
 			that drive business growth.
 		</h2>
 
-		<div class="flex gap-2 flex-wrap">
+		<div class="flex gap-2 flex-wrap z-50 pointer-events-auto">
 			<ButtonAnimatedGradient
 				text="LinkedIn"
 				iconId="linkedin"
@@ -58,9 +57,9 @@ import CanvasComponent from "../components/Canvas";
 			/>
 
 			<ButtonAnimatedGradient
-				text="alvaro.acevedo.ing@gmail.com"
+				text="alvaro@thefullstack.digital"
 				iconId="mail"
-				href="https://mail.google.com/mail/?view=cm&fs=1&to=alvaro.acevedo.ing@gmail.com"
+				href="mailto:alvaro@thefullstack.digital"
 				client:load
 			/>
 		</div>
@@ -106,7 +105,7 @@ import CanvasComponent from "../components/Canvas";
 
 <style>
 	:global(*) {
-		touch-action: none;
+		touch-action: pan-x pan-y;
 		user-select: none;
 		-webkit-user-select: none;
 		-moz-user-select: none;

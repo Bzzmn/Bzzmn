@@ -5,12 +5,13 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro check && astro build",
-    "start": "node ./dist/server/entry.mjs"
+    "preview": "astro preview",
+    "start": "astro start"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.3",
+    "@astrojs/node": "^9.1.0",
     "@astrojs/react": "3.6.2",
-    "@astrojs/node": "^9.0.0",
     "@astrojs/tailwind": "^5.1.1",
     "@fontsource-variable/onest": "^5.0.4",
     "@n8n/chat": "^0.27.1",
@@ -29,11 +30,11 @@
   },
   "devDependencies": {
     "@types/canvas-confetti": "^1.6.4",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
     "@types/three": "^0.168.0",
     "astro": "^5.2.6",
     "tailwindcss": "^3.4.3",
-    "typescript": "^5.4.5",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0"
+    "typescript": "^5.4.5"
   }
 }
