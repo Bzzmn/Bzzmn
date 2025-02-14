@@ -35,4 +35,5 @@ export default defineConfig({
       noExternal: ['three', '@react-three/fiber', '@react-three/drei', '@react-three/rapier', '@n8n/chat'],
     },
   },
+  output: 'static',
 });

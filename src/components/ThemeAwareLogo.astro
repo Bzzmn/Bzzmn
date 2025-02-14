@@ -1,0 +1,65 @@
+---
+interface Props {
+    class?: string;
+    variant?: 'color' | 'monochrome';
+    width?: string | number;
+    height?: string | number;
+}
+
+const { 
+    class: className, 
+    variant = 'color',
+    width = 'auto',
+    height = '4rem' // equivalente a h-16
+} = Astro.props;
+
+// Convertir números a px si es necesario
+const widthValue = typeof width === 'number' ? `${width}px` : width;
+const heightValue = typeof height === 'number' ? `${height}px` : height;
+
+// Crear el objeto de estilo
+const imgStyle = {
+    width: widthValue,
+    height: heightValue
+};
+---
+
+<div class={className}>
+    {variant === 'color' ? (
+        <>
+            <!-- Logo a color para tema claro -->
+            <img
+                src="https://general-images-bucket.s3.sa-east-1.amazonaws.com/logo_thefullstack/fullstack_horizontal_color_whitebg.png"
+                alt="The Full Stack Logo"
+                style={imgStyle}
+                class="block dark:hidden transition-opacity duration-300 ease-in-out opacity-100 dark:opacity-0"
+            />
+            
+            <!-- Logo a color para tema oscuro -->
+            <img
+                src="https://general-images-bucket.s3.sa-east-1.amazonaws.com/logo_thefullstack/fullstack_horizontal_color_blackbg.png"
+                alt="The Full Stack Logo"
+                style={imgStyle}
+                class="hidden dark:block transition-opacity duration-300 ease-in-out opacity-0 dark:opacity-100"
+            />
+        </>
+    ) : (
+        <>
+            <!-- Logo monocromático para tema claro (negro) -->
+            <img
+                src="https://general-images-bucket.s3.sa-east-1.amazonaws.com/logo_thefullstack/fullstack_horizontal_black_whitebg.png"
+                alt="The Full Stack Logo"
+                style={imgStyle}
+                class="block dark:hidden transition-opacity duration-300 ease-in-out opacity-100 dark:opacity-0"
+            />
+            
+            <!-- Logo monocromático para tema oscuro (blanco) -->
+            <img
+                src="https://general-images-bucket.s3.sa-east-1.amazonaws.com/logo_thefullstack/fullstack_horizontal_white_blackbg.png"
+                style={imgStyle}
+                class="hidden dark:block transition-opacity duration-300 ease-in-out opacity-0 dark:opacity-100"
+            />
+        </>
+    )}
+</div>
+

@@ -6,12 +6,13 @@ import { BallCollider, CuboidCollider, Physics, RigidBody, useRopeJoint, useSphe
 import { MeshLineGeometry, MeshLineMaterial } from 'meshline'
 
 extend({ MeshLineGeometry, MeshLineMaterial })
-useGLTF.preload('/images/card_the_fullstack.glb')
-useTexture.preload('/images/band.jpg')
+useGLTF.preload('/images/nueva_card_1.glb')
+useTexture.preload('/images/band.png')
+useTexture.preload('/images/band_white.png')
 
 export default function App() {
     return (
-        <Canvas camera={{ position: [0, 0, 13], fov: 35 }} >
+        <Canvas camera={{ position: [0, 0, 12], fov: 35 }} >
             <ambientLight intensity={Math.PI} />
             <Physics interpolate gravity={[0, -40, 0]} timeStep={1 / 60}>
                 <Band />
@@ -30,8 +31,10 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
     const band = useRef(), fixed = useRef(), j1 = useRef(), j2 = useRef(), j3 = useRef(), card = useRef()
     const vec = new Vector3(), ang = new Vector3(), rot = new Vector3(), dir = new Vector3()
     const segmentProps = { type: 'dynamic', canSleep: true, colliders: false, angularDamping: 2, linearDamping: 2 }
-    const { nodes, materials } = useGLTF('/images/card_the_fullstack.glb')
-    const texture = useTexture('/images/band.jpg')
+    const { nodes, materials } = useGLTF('/images/nueva_card_1.glb')
+    const darkTexture = useTexture('/images/band.png')
+    const lightTexture = useTexture('/images/band_white.png')
+    const [currentTexture, setCurrentTexture] = useState(darkTexture)
     const { width, height } = useThree((state) => state.size)
     const [curve] = useState(() => new CatmullRomCurve3([new Vector3(), new Vector3(), new Vector3(), new Vector3()]))
     const [dragged, setDragged] = useState(false)
@@ -40,6 +43,29 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
     const [touchStartPosition, setTouchStartPosition] = useState(null)
     const [preventDefault, setPreventDefault] = useState(false)
 
+    useEffect(() => {
+        const updateTexture = () => {
+            const isDark = document.documentElement.classList.contains('dark')
+            setCurrentTexture(isDark ? darkTexture : lightTexture)
+        }
+
+        updateTexture()
+
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.attributeName === 'class') {
+                    updateTexture()
+                }
+            })
+        })
+
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['class']
+        })
+
+        return () => observer.disconnect()
+    }, [darkTexture, lightTexture])
 
     const drag = (value) => {
         console.log('Drag state changed:', value)
@@ -165,11 +191,11 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
     })
 
     curve.curveType = 'chordal'
-    texture.wrapS = texture.wrapT = RepeatWrapping
+    currentTexture.wrapS = currentTexture.wrapT = RepeatWrapping
 
     return (
         <>
-            <group position={[0, 6, 0]}>
+            <group position={[0, 5, 0]}>
                 <RigidBody ref={fixed} {...segmentProps} type="fixed" />
                 <RigidBody position={[0.5, 0, 0]} ref={j1} {...segmentProps}>
                     <BallCollider args={[0.1]} />
@@ -204,7 +230,14 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
             </group>
             <mesh ref={band}>
                 <meshLineGeometry />
-                <meshLineMaterial color="white" depthTest={false} resolution={[width, height]} useMap map={texture} repeat={[-3, 1]} lineWidth={1} />
+                <meshLineMaterial
+                    color="white"
+                    depthTest={false}
+                    resolution={[width, height]}
+                    useMap map={currentTexture}
+                    repeat={[-3, 1]}
+                    lineWidth={1}
+                />
             </mesh>
         </>
     )
