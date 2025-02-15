@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import * as THREE from 'three';
 
 interface DragStats {
     count: number;
     totalDistance: number;
     lastPosition: THREE.Vector3 | null;
-    currentDistance: number;
 }
 
 interface DragTrackerReturn {
@@ -15,69 +14,101 @@ interface DragTrackerReturn {
     trackDragMove: (currentPoint: THREE.Vector3) => void;
 }
 
-export function useDragTracker(storageKey = 'dragStats'): DragTrackerReturn {
+const STORAGE_KEY = 'badgeDragStats';
+
+export function useDragTracker(): DragTrackerReturn {
     const [dragStats, setDragStats] = useState<DragStats>({
         count: 0,
         totalDistance: 0,
-        lastPosition: null,
-        currentDistance: 0
+        lastPosition: null
     });
 
     // Cargar estadísticas guardadas
     useEffect(() => {
-        const savedStats = localStorage.getItem(storageKey);
-        if (savedStats) {
-            const parsed = JSON.parse(savedStats);
-            setDragStats(prev => ({
-                ...prev,
-                count: parsed.count,
-                totalDistance: parsed.totalDistance
-            }));
+        try {
+            const savedStats = localStorage.getItem(STORAGE_KEY);
+            if (savedStats) {
+                const parsed = JSON.parse(savedStats);
+                setDragStats(prev => ({
+                    ...prev,
+                    count: Number(parsed.count) || 0,
+                    totalDistance: Number(parsed.totalDistance) || 0,
+                    lastPosition: null
+                }));
+            }
+        } catch (error) {
+            console.error('Error loading drag stats:', error);
         }
-    }, [storageKey]);
+    }, []);
 
-    // Guardar estadísticas
-    useEffect(() => {
-        localStorage.setItem(storageKey, JSON.stringify({
-            count: dragStats.count,
-            totalDistance: dragStats.totalDistance
-        }));
-    }, [dragStats.count, dragStats.totalDistance, storageKey]);
+    const saveToStorage = useCallback((stats: DragStats) => {
+        try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify({
+                count: stats.count,
+                totalDistance: Number(stats.totalDistance.toFixed(2))
+            }));
+        } catch (error) {
+            console.error('Error saving drag stats:', error);
+        }
+    }, []);
 
-    const trackDragStart = () => {
-        setDragStats(prev => ({
-            ...prev,
-            count: prev.count + 1,
-            lastPosition: null,
-            currentDistance: 0
-        }));
-    };
-
-    const trackDragEnd = () => {
-        console.log('Drag Stats:', {
-            totalDrags: dragStats.count,
-            totalDistance: dragStats.totalDistance.toFixed(2),
-            averageDistance: (dragStats.totalDistance / dragStats.count).toFixed(2)
+    const trackDragStart = useCallback(() => {
+        setDragStats(prev => {
+            const newStats = {
+                ...prev,
+                count: prev.count + 1,
+                lastPosition: null
+            };
+            saveToStorage(newStats);
+            return newStats;
         });
-    };
+    }, [saveToStorage]);
 
-    const trackDragMove = (currentPoint: THREE.Vector3) => {
-        if (!dragStats.lastPosition) {
-            setDragStats(prev => ({
+    const trackDragMove = useCallback((currentPoint: THREE.Vector3) => {
+        setDragStats(prev => {
+            if (!prev.lastPosition) {
+                return {
+                    ...prev,
+                    lastPosition: currentPoint.clone()
+                };
+            }
+
+            // Calcular la distancia en píxeles
+            const distance = Math.sqrt(
+                Math.pow(currentPoint.x - prev.lastPosition.x, 2) +
+                Math.pow(currentPoint.y - prev.lastPosition.y, 2)
+            ) * 100; // Multiplicamos por 100 para tener una escala más manejable
+
+            // Solo actualizar si hay un movimiento significativo
+            if (distance > 1) { // Umbral de 1 píxel
+                const newStats = {
+                    ...prev,
+                    totalDistance: prev.totalDistance + distance,
+                    lastPosition: currentPoint.clone()
+                };
+
+                // Solo guardar cada cierto intervalo para no sobrecargar el localStorage
+                if (Math.floor(newStats.totalDistance) !== Math.floor(prev.totalDistance)) {
+                    saveToStorage(newStats);
+                }
+
+                return newStats;
+            }
+
+            return prev;
+        });
+    }, [saveToStorage]);
+
+    const trackDragEnd = useCallback(() => {
+        setDragStats(prev => {
+            // Guardar el estado final
+            saveToStorage(prev);
+            return {
                 ...prev,
-                lastPosition: currentPoint.clone()
-            }));
-            return;
-        }
-
-        const distance = currentPoint.distanceTo(dragStats.lastPosition);
-        setDragStats(prev => ({
-            ...prev,
-            totalDistance: prev.totalDistance + distance,
-            lastPosition: currentPoint.clone(),
-            currentDistance: distance
-        }));
-    };
+                lastPosition: null
+            };
+        });
+    }, [saveToStorage]);
 
     return {
         dragStats,

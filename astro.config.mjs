@@ -15,6 +15,18 @@ export default defineConfig({
     mode: 'standalone'
   }),
   vite: {
+    server: {
+      hmr: false,
+      host: '0.0.0.0',
+      watch: {
+        usePolling: true,
+        interval: 1000
+      },
+      allowedHosts: [
+        'localhost',
+        '.ngrok.app',
+      ]
+    },
     build: {
       rollupOptions: {
         output: {

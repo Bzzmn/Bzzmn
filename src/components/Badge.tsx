@@ -1,6 +1,6 @@
 import React from 'react';
 import * as THREE from 'three';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { extend, useFrame } from '@react-three/fiber';
 import {
     BallCollider,
@@ -14,6 +14,8 @@ import { MeshLineGeometry, MeshLineMaterial } from 'meshline';
 import { useGLTF, useTexture } from '@react-three/drei';
 import { useDragTracker } from '../hooks/useDragTracker';
 import { DragStats } from './DragStats';
+import { useMouseInteraction } from '../hooks/useMouseInteraction';
+import { useTouchInteraction } from '../hooks/useTouchInteraction';
 
 
 
@@ -100,50 +102,25 @@ export default function Badge({ maxSpeed = 50, minSpeed = 10 }) {
         [0, 1.45, 0],
     ]);
 
-    const [dragStats, setDragStats] = useState({
-        count: 0,
-        totalDistance: 0,
-        lastPosition: null,
-        currentDistance: 0
-    });
+    const { trackDragStart, trackDragEnd, trackDragMove } = useDragTracker();
 
-    const trackDragDistance = (currentPoint) => {
-        if (!dragStats.lastPosition) {
-            setDragStats(prev => ({
-                ...prev,
-                lastPosition: currentPoint
-            }));
-            return;
-        }
-
-        const distance = currentPoint.distanceTo(dragStats.lastPosition);
-        setDragStats(prev => ({
-            count: prev.count,
-            totalDistance: prev.totalDistance + distance,
-            lastPosition: currentPoint,
-            currentDistance: distance
-        }));
-    };
-
-    const drag = (value) => {
+    const drag = useCallback((value: boolean | THREE.Vector3) => {
         if (value) {
-            // Inicio del arrastre
-            setDragStats(prev => ({
-                ...prev,
-                count: prev.count + 1,
-                lastPosition: null,
-                currentDistance: 0
-            }));
+            trackDragStart();
         } else {
-            // Fin del arrastre
-            console.log('Drag Stats:', {
-                totalDrags: dragStats.count,
-                totalDistance: dragStats.totalDistance.toFixed(2),
-                averageDistance: (dragStats.totalDistance / dragStats.count).toFixed(2)
-            });
+            trackDragEnd();
         }
         setDragged(value);
-    };
+    }, [trackDragStart, trackDragEnd]);
+
+    const mouseInteraction = useMouseInteraction(card, drag, () => drag(false));
+    const touchInteraction = useTouchInteraction(
+        card,
+        dragged,
+        drag,
+        () => drag(false),
+        trackDragMove
+    );
 
     useEffect(() => {
         if (hovered) {
@@ -160,14 +137,13 @@ export default function Badge({ maxSpeed = 50, minSpeed = 10 }) {
                 if (element) {
                     const computedStyle = window.getComputedStyle(element);
                     if (computedStyle.cursor === 'pointer' || computedStyle.cursor === 'default') {
-                        drag(null);
+                        drag(false);
                         if (card.current) {
                             card.current.wakeUp();
                         }
                     } else {
-                        // Trackear el movimiento durante el arrastre
                         const currentPoint = new THREE.Vector3(touch.clientX, touch.clientY, 0);
-                        trackDragDistance(currentPoint);
+                        trackDragMove(currentPoint);
                     }
                 }
             }
@@ -175,7 +151,7 @@ export default function Badge({ maxSpeed = 50, minSpeed = 10 }) {
 
         const handleTouchEnd = () => {
             if (dragged) {
-                drag(null);
+                drag(false);
                 if (card.current) {
                     card.current.wakeUp();
                 }
@@ -191,25 +167,7 @@ export default function Badge({ maxSpeed = 50, minSpeed = 10 }) {
             window.removeEventListener('touchend', handleTouchEnd);
             window.removeEventListener('touchcancel', handleTouchEnd);
         };
-    }, [dragged, dragStats]);
-
-    // Opcional: Guardar estadísticas en localStorage
-    useEffect(() => {
-        const savedStats = localStorage.getItem('badgeDragStats');
-        if (savedStats) {
-            setDragStats(prev => ({
-                ...prev,
-                ...JSON.parse(savedStats)
-            }));
-        }
-
-        return () => {
-            localStorage.setItem('badgeDragStats', JSON.stringify({
-                count: dragStats.count,
-                totalDistance: dragStats.totalDistance
-            }));
-        };
-    }, []);
+    }, [dragged, trackDragMove, drag]);
 
     useFrame((state, delta) => {
         if (
@@ -294,25 +252,8 @@ export default function Badge({ maxSpeed = 50, minSpeed = 10 }) {
                     <group
                         scale={2.25}
                         position={[0, -1.2, -0.05]}
-                        onPointerOver={() => hover(true)}
-                        onPointerOut={() => hover(false)}
-                        onPointerUp={() => drag(null)}
-                        onPointerDown={(evt) =>
-                            card.current &&
-                            drag(
-                                new THREE.Vector3()
-                                    .copy(evt.point)
-                                    .sub(vec.copy(card.current.translation()))
-                            )
-                        }
-                        onTouchStart={(evt) => {
-                            evt.preventDefault();
-                            if (card.current) {
-                                const touch = evt.touches[0];
-                                const point = new THREE.Vector3(touch.clientX, touch.clientY, 0);
-                                drag(point.sub(vec.copy(card.current.translation())));
-                            }
-                        }}
+                        {...mouseInteraction.handlers}
+                        {...touchInteraction.handlers}
                     >
                         {/* @ts-expect-error geometry/map are not declared? */}
                         <mesh geometry={nodes.card.geometry}>

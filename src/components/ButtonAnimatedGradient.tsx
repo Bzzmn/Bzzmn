@@ -12,7 +12,7 @@ interface ButtonProps {
   pdf?: string;
 }
 
-const icons:any = {
+const icons: any = {
   linkedin: LinkedinIcon,
   github: GithubIcon,
   mail: MailIcon,
@@ -55,7 +55,12 @@ const ButtonAnimatedGradient = ({ text, iconId, href, pdf }: ButtonProps) => {
   };
 
   return (
-    <a href={href} target='_blank' download={pdf?pdf:''}>
+    <a
+      href={href}
+      target='_blank'
+      download={pdf || undefined}
+      rel="noopener noreferrer"
+    >
       <button
         ref={divRef}
         onMouseMove={handleMouseMove}
@@ -73,7 +78,7 @@ const ButtonAnimatedGradient = ({ text, iconId, href, pdf }: ButtonProps) => {
           }}
         />
         <div className='flex gap-2 items-center'>
-          {IconComponent ? <IconComponent />: null} {text}
+          {IconComponent ? <IconComponent /> : null} {text}
         </div>
       </button>
     </a>
