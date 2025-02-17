@@ -16,12 +16,13 @@ type Category = {
 
 interface FlipCardProps {
     category: Category;
+    icon: string;
     index: number;
     isFlipped: boolean;
     onFlip: (index: number) => void;
 }
 
-const FlipCard: React.FC<FlipCardProps> = ({ category, index, isFlipped, onFlip }) => {
+const FlipCard: React.FC<FlipCardProps> = ({ category, icon, index, isFlipped, onFlip }) => {
     const cardRef = useRef(null);
     const innerRef = useRef(null);
 
@@ -113,10 +114,18 @@ const FlipCard: React.FC<FlipCardProps> = ({ category, index, isFlipped, onFlip 
         >
             <div ref={innerRef} className="flip-card-inner relative w-full h-full text-center transition-transform duration-600 [transform-style:preserve-3d]">
                 <div
-                    className="flip-card-front absolute w-full h-full backface-hidden transition-transform duration-600 bg-primary text-primary-foreground flex items-center justify-center p-4 rounded-lg shadow-md hover:bg-[#FF00FF] hover:scale-105 bg-[#3b82f6]"
+                    className="flip-card-front absolute w-full h-full backface-hidden transition-transform duration-600 bg-primary text-primary-foreground flex flex-col items-center justify-center p-4 rounded-lg shadow-md hover:scale-105 bg-gradient-to-r from-[#1e3a8a] via-[#1e40af] to-[#1e3a8a] bg-[size:200%] hover:bg-[position:100%] gap-2 group"
+                    style={{
+                        background: 'radial-gradient(circle at center, #d946ef 0%, #2563eb 45%, #1e3a8a 100%)'
+                    }}
                     onClick={handleCardClick}
                 >
-                    <h2 className="text-xl font-semibold">{category.name}</h2>
+                    <img 
+                        src={icon} 
+                        alt={`${category.name} icon`}
+                        className="w-28 h-28 object-contain mb-2 transition-transform duration-500 ease-out group-hover:scale-125 group-hover:rotate-3"
+                    />
+                    <h2 className="text-base font-medium">{category.name}</h2>
                 </div>
                 <div
                     className="flip-card-back absolute w-full h-full backface-hidden [transform:rotateX(180deg)] p-4 rounded-lg shadow-md bg-white dark:bg-gray-800 overflow-auto text-gray-500 dark:text-gray-400"
@@ -173,7 +182,7 @@ export default function EduCategories() {
     }, [])
 
     return (
-        <div className="categories-container relative w-full">
+        <div className="categories-container relative w-full mb-32">
             <div id="edu-categories" className="relative w-full">
                 <div
                     className={`fixed inset-0 z-[9998] overlay ${flippedIndex !== null ? 'active' : ''}`}
@@ -184,6 +193,7 @@ export default function EduCategories() {
                         {categories.map((category, index) => (
                             <FlipCard
                                 key={category.name}
+                                icon={category.icon}
                                 category={category}
                                 index={index}
                                 isFlipped={flippedIndex === index}

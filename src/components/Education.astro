@@ -2,143 +2,229 @@
 import EducationRow from "./EducationRow.astro";
 
 const education = [
-    // {
-    //     type: 'Specialization Course',
-    //     institution: 'University of Helsinki',
-    //     logo: 'https://media.licdn.com/dms/image/C560BAQHZQ2B3IQO9xg/company-logo_200_200/0/1631300517673?e=1726099200&v=beta&t=tPfShx4hZWZQgQ5_pWQT_yZCf435zN9-a4k0zl3cYco',
-    //     program: 'Full Stack Open - Deep Dive Into Modern Web Development',
-    //     date: 'Jul 2024',
-    //     category: 'Web Development',
-    //     certificate: '',
-    // },
-    {
-        type: "Specialization Course",
-        institution: "Coderhouse",
-        logo: "/images/edu-logos/coderhouse_logo.jpeg",
-        program: "Advanced Backend Development I",
-        date: "Aug 2024",
-        category: "Web Development",
-        certificate:
-            "https://www.coderhouse.com/cl/certificados/66c25d09c9341672ee0bd5df",
-    },
+  // {
+  //     type: 'Specialization Course',
+  //     institution: 'University of Helsinki',
+  //     logo: 'https://media.licdn.com/dms/image/C560BAQHZQ2B3IQO9xg/company-logo_200_200/0/1631300517673?e=1726099200&v=beta&t=tPfShx4hZWZQgQ5_pWQT_yZCf435zN9-a4k0zl3cYco',
+  //     program: 'Full Stack Open - Deep Dive Into Modern Web Development',
+  //     date: 'Jul 2024',
+  //     category: 'Web Development',
+  //     certificate: '',
+  // },
+  {
+    type: "Specialization Course",
+    institution: "Coderhouse",
+    logo: "/images/edu-logos/coderhouse_logo.jpeg",
+    program: "Advanced Backend Development",
+    date: "Aug 2024",
+    category: "Backend Development",
+    certificate:
+      "https://www.coderhouse.com/cl/certificados/66c25d09c9341672ee0bd5df",
+  },
 
-    {
-        type: "Specialization Course",
-        institution: "Talento Digital",
-        logo: "/images/edu-logos/talento_digital.jpeg",
-        program: "Full Stack Python Web Apps Development",
-        date: "Jul 2024",
-        category: "Web Development",
-        certificate:
-            "https://www.acreditta.com/credential/751d7eab-5dcb-47bd-9805-4bdea5097c54?utm_source=linkedin_profile&resource_type=badge&resource=751d7eab-5dcb-47bd-9805-4bdea5097c54",
-    },
-    {
-        type: "Specialization Course",
-        institution: "Deeplearning.ai",
-        logo: "/images/edu-logos/deeplearningai_logo.jpeg",
-        program: "Generative AI with Large Language Models",
-        date: "Jun 2024",
-        category: "Artificial Intelligence",
-        certificate:
-            "https://www.coursera.org/account/accomplishments/verify/5LBWU93TZAUL",
-    },
-    {
-        type: "Specialization Course",
-        institution: "Coderhouse",
-        logo: "/images/edu-logos/coderhouse_logo.jpeg",
-        program: "React JS",
-        date: "May 2024",
-        category: "Web Development",
-        certificate:
-            "https://general-projects-public.s3.eu-west-3.amazonaws.com/reactjs_665bb3f07a43e34378945374.webp",
-    },
-    {
-        type: "Specialization Course",
-        institution: "Coderhouse",
-        logo: "/images/edu-logos/coderhouse_logo.jpeg",
-        program: "JavaScript",
-        date: "Mar 2024",
-        category: "Web Development",
-        certificate:
-            "https://general-projects-public.s3.eu-west-3.amazonaws.com/javascript_6616df7dd362da3865693edb.webp",
-    },
-    {
-        type: "Specialization Course",
-        institution: "MIT Sloan School of Management",
-        logo: "/images/edu-logos/mit.jpeg",
-        program:
-            "Blockchain and Crypto Applications: From Decentralized Finance to Web 3",
-        date: "Oct 2023",
-        category: "Blockchain",
-        certificate:
-            "https://mitsloan.credential.getsmarter.com/d8dae6d1-b4fa-4cb7-8eeb-3cd317543ce1",
-    },
-    {
-        type: "Specialization Course",
-        institution: "CertiProf",
-        logo: "/images/edu-logos/certiprof_logo.jpeg",
-        program: "Scrum Product Owner Professional Certificate (SPOPC)",
-        date: "Feb 2023",
-        category: "Agile Methodologies",
-        certificate:
-            "https://www.credly.com/badges/b8d3f9c8-3115-4f53-a62e-d6a700ed110c/public_url",
-    },
-    {
-        type: "Diploma",
-        institution: "Universidad de Chile",
-        logo: "/images/edu-logos/uchile_logo.jpeg",
-        program: "Digital Marketing & e-Business",
-        date: "Jul 2020",
-        category: "Marketing",
-        certificate:
-            "https://general-projects-public.s3.eu-west-3.amazonaws.com/dmarketing.webp",
-    },
-    {
-        type: "Diploma",
-        institution: "Universidad de Chile",
-        logo: "/images/edu-logos/uchile_logo.jpeg",
-        program: "International trade and logistics",
-        date: "Jan 2018",
-        category: "Business",
-        certificate:
-            "https://general-projects-public.s3.eu-west-3.amazonaws.com/internationaltrade.webp",
-    },
-    {
-        type: "Bs. Degree",
-        institution: "Universidad Diego Portales",
-        logo: "/images/edu-logos/udp_logo.jpeg",
-        program: "Business Engineering - Approved with Distinction",
-        date: "Dec 2017",
-        category: "Business",
-        certificate:
-            "https://general-projects-public.s3.eu-west-3.amazonaws.com/bsdegree.webp",
-    },
+  {
+    type: "Specialization Course",
+    institution: "Talento Digital",
+    logo: "/images/edu-logos/talento_digital.jpeg",
+    program: "Full Stack Python Web Apps Development",
+    date: "Jul 2024",
+    category: "Backend Development",
+    certificate:
+      "https://www.acreditta.com/credential/751d7eab-5dcb-47bd-9805-4bdea5097c54?utm_source=linkedin_profile&resource_type=badge&resource=751d7eab-5dcb-47bd-9805-4bdea5097c54",
+  },
+  {
+    type: "Specialization Course",
+    institution: "Deeplearning.ai",
+    logo: "/images/edu-logos/deeplearningai_logo.jpeg",
+    program: "Generative AI with Large Language Models",
+    date: "Jun 2024",
+    category: "Artificial Intelligence",
+    certificate:
+      "https://www.coursera.org/account/accomplishments/verify/5LBWU93TZAUL",
+  },
+  {
+    type: "Specialization Course",
+    institution: "Coderhouse",
+    logo: "/images/edu-logos/coderhouse_logo.jpeg",
+    program: "React Frontend Development",
+    date: "May 2024",
+    category: "Frontend Development",
+    certificate:
+      "https://general-projects-public.s3.eu-west-3.amazonaws.com/reactjs_665bb3f07a43e34378945374.webp",
+  },
+  {
+    type: "Specialization Course",
+    institution: "Coderhouse",
+    logo: "/images/edu-logos/coderhouse_logo.jpeg",
+    program: "JavaScript",
+    date: "Mar 2024",
+    category: "Frontend Development",
+    certificate:
+      "https://general-projects-public.s3.eu-west-3.amazonaws.com/javascript_6616df7dd362da3865693edb.webp",
+  },
+  {
+    type: "Specialization Course",
+    institution: "MIT Sloan School of Management",
+    logo: "/images/edu-logos/mit.jpeg",
+    program:
+      "Blockchain and Crypto Applications: From Decentralized Finance to Web 3",
+    date: "Oct 2023",
+    category: "Blockchain & Web 3",
+    certificate:
+      "https://mitsloan.credential.getsmarter.com/d8dae6d1-b4fa-4cb7-8eeb-3cd317543ce1",
+  },
+  {
+    type: "Specialization Course",
+    institution: "CertiProf",
+    logo: "/images/edu-logos/certiprof_logo.jpeg",
+    program: "Scrum Product Owner Professional Certificate (SPOPC)",
+    date: "Feb 2023",
+    category: "Digital Marketing & Business",
+    certificate:
+      "https://www.credly.com/badges/b8d3f9c8-3115-4f53-a62e-d6a700ed110c/public_url",
+  },
+  {
+    type: "Diploma",
+    institution: "Universidad de Chile",
+    logo: "/images/edu-logos/uchile_logo.jpeg",
+    program: "Digital Marketing & e-Business",
+    date: "Jul 2020",
+    category: "Digital Marketing & Business",
+    certificate:
+      "https://general-images-bucket.s3.sa-east-1.amazonaws.com/diplomado_marketing_digital.webp",
+  },
+  {
+    type: "Diploma",
+    institution: "Universidad de Chile",
+    logo: "/images/edu-logos/uchile_logo.jpeg",
+    program: "International trade and logistics",
+    date: "Jan 2018",
+    category: "Digital Marketing & Business",
+    certificate:
+      "https://general-images-bucket.s3.sa-east-1.amazonaws.com/diploma_comercio_internacional.webp",
+  },
+  {
+    type: "Bs. Degree",
+    institution: "Universidad Diego Portales",
+    logo: "/images/edu-logos/udp_logo.jpeg",
+    program: "Business Engineering - Approved with Distinction",
+    date: "Dec 2017",
+    category: "Digital Marketing & Business",
+    certificate:
+      "https://general-images-bucket.s3.sa-east-1.amazonaws.com/bachelor_licencia_ingenieria.webp",
+  },
+  {
+    type: "Certification",
+    institution: "Google",
+    logo: "/images/edu-logos/google.jpeg",
+    program: "Google Cybersecurity Professional Certificate",
+    date: "Feb 2025",
+    category: "Cloud Computing & Cybersecurity",
+    certificate:
+      "https://www.coursera.org/account/accomplishments/specialization/F7MFIISVRZ1X",
+  },
+  {
+    type: "Specialization Course",
+    institution: "Talento Digital",
+    logo: "/images/edu-logos/talento_digital.jpeg",
+    program: "Arquitectura Cloud",
+    date: "Jun 2025",
+    category: "Cloud Computing & Cybersecurity",
+    certificate: "",
+  },
+  {
+    type: "Certification",
+    institution: "Chainlink",
+    logo: "/images/edu-logos/chainlink.jpg",
+    program: "Bootcamp on Tokenizing Real-World Assets (RWAs)",
+    date: "Nov 2024",
+    category: "Blockchain & Web 3",
+    certificate: "https://collectors.poap.xyz/token/7259737",
+  },
+  {
+    type: "Specialization Course",
+    institution: "Coderhouse",
+    logo: "/images/edu-logos/coderhouse_logo.jpeg",
+    program: "Backend Testing and Scalability",
+    date: "Dic 2024",
+    category: "Backend Development",
+    certificate:
+      "https://pub.coderhouse.com/legacy-certificates/67744b88f3ef146bb345189f",
+  },
+  {
+    type: "Specialization Course",
+    institution: "Coderhouse",
+    logo: "/images/edu-logos/coderhouse_logo.jpeg",
+    program: "Backend Design and Architecture",
+    date: "Oct 2024",
+    category: "Backend Development",
+    certificate:
+      "https://pub.coderhouse.com/legacy-certificates/671d86c7c77ea90692575fd0",
+  },
+  {
+    type: "Specialization Course",
+    institution: "Coderhouse",
+    logo: "/images/edu-logos/coderhouse_logo.jpeg",
+    program: "Advanced Backend Development",
+    date: "Aug 2024",
+    category: "Backend Development",
+    certificate:
+      "https://www.coderhouse.com/cl/certificados/66c25d09c9341672ee0bd5df",
+  },
+  {
+    type: "Specialization Course",
+    institution: "Coderhouse",
+    logo: "/images/edu-logos/coderhouse_logo.jpeg",
+    program: "JavaScript",
+    date: "Mar 2024",
+    category: "Frontend Development",
+    certificate:
+      "https://pub.coderhouse.com/legacy-certificates/6616df7dd362da3865693edb",
+  },
+  {
+    type: "Specialization Course",
+    institution: "Coderhouse",
+    logo: "/images/edu-logos/coderhouse_logo.jpeg",
+    program: "Desarrollo Frontend Angular",
+    date: "Mar 2024",
+    category: "Frontend Development",
+    certificate:
+      "https://pub.coderhouse.com/legacy-certificates/671dd4bbb7b360a7d8727f5c",
+  },
+  {
+    type: "Specialization Course",
+    institution: "Coderhouse",
+    logo: "/images/edu-logos/coderhouse_logo.jpeg",
+    program: "Desarrollo Web",
+    date: "Dic 2023",
+    category: "Frontend Development",
+    certificate:
+      "https://pub.coderhouse.com/legacy-certificates/659bfdafffe09859231f794f",
+  },
 ];
 ---
 
 <div class="mx-auto max-w-screen-2xl">
-    <div
-        class="relative overflow-hidden bg-white shadow-md dark:bg-gray-800 rounded-lg"
-    >
-        <div class="overflow-x-auto">
-            <table
-                class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
-            >
-                <thead
-                    class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
-                >
-                    <tr>
-                        <th scope="col" class="px-4 py-6">Type</th>
-                        <th scope="col" class="px-4 py-6">Institution</th>
-                        <th scope="col" class="px-4 py-6">Program</th>
-                        <th scope="col" class="px-4 py-6">Date</th>
-                        <th scope="col" class="px-4 py-6">Category</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {education.map((item) => <EducationRow {...item} />)}
-                </tbody>
-            </table>
-        </div>
+  <div
+    class="relative overflow-hidden bg-white shadow-md dark:bg-gray-800 rounded-lg"
+  >
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead
+          class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+        >
+          <tr>
+            <th scope="col" class="px-4 py-6">Type</th>
+            <th scope="col" class="px-4 py-6">Institution</th>
+            <th scope="col" class="px-4 py-6">Program</th>
+            <th scope="col" class="px-4 py-6">Date</th>
+            <th scope="col" class="px-4 py-6">Category</th>
+          </tr>
+        </thead>
+        <tbody>
+          {education.map((item) => <EducationRow {...item} />)}
+        </tbody>
+      </table>
     </div>
+  </div>
 </div>

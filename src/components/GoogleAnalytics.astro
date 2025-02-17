@@ -1,0 +1,18 @@
+---
+const GA_TRACKING_ID = "G-CZF4S0MVF8"; // ID fijo para desarrollo y producción
+---
+
+<!-- Google Analytics Script -->
+<script
+  type="text/partytown"
+  async
+  src="https://www.googletagmanager.com/gtag/js?id=G-CZF4S0MVF8"></script>
+<script type="text/partytown">
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
+
+  gtag("config", "G-CZF4S0MVF8");
+</script>

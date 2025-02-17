@@ -2,138 +2,175 @@
 import "@fontsource-variable/onest";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import GoogleAnalytics from "../components/GoogleAnalytics.astro";
+import OpenGraph from "../components/OpenGraph.astro";
+
 interface Props {
-	title: string;
+  title: string;
+  description?: string;
+  image?: string;
+  type?: string;
 }
-const { title } = Astro.props;
+
+const { title, description, image, type } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-		<script is:inline>
-			// Inline script to set initial theme
-			if (
-				localStorage.getItem("color-theme") === "dark" ||
-				(!("color-theme" in localStorage) &&
-					window.matchMedia("(prefers-color-scheme: dark)").matches)
-			) {
-				document.documentElement.classList.add("dark");
-			} else {
-				document.documentElement.classList.remove("dark");
-			}
-		</script>
-	</head>
-	<body class="relative">
-		<div class="fixed left-0 top-0 -z-10 h-full w-full">
-			<div id="background-container">
-				<div class="bg-dark" id="bg-dark"></div>
-				<div class="bg-light" id="bg-light"></div>
-			</div>
-		</div>
-		<Header />
-		<main class="relative z-0 mt-[-11rem]">
-			<slot />
-		</main>
-		<div class="relative z-10">
-			<Footer />
-		</div>
-		<script
-			is:inline
-			src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"
-		></script>
-		<script src="/js/theme-toggle.js" is:inline></script>
-		<!-- <Chat client:load /> -->
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <!-- Favicons -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/images/favicon_fullstack_180x180.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="40x40"
+      href="/images/favicon_fullstack_40x40.png"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/images/favicon_fullstack.svg"
+    />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <OpenGraph
+      title={title}
+      description={description}
+      image={image}
+      type={type}
+    />
+    <script is:inline>
+      // Inline script to set initial theme
+      if (
+        localStorage.getItem("color-theme") === "dark" ||
+        (!("color-theme" in localStorage) &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    </script>
+    <GoogleAnalytics />
+  </head>
+  <body class="relative">
+    <div class="fixed left-0 top-0 -z-10 h-full w-full">
+      <div id="background-container">
+        <div class="bg-dark" id="bg-dark"></div>
+        <div class="bg-light" id="bg-light"></div>
+      </div>
+    </div>
+    <Header />
+    <main class="relative z-0 mt-[-11rem]">
+      <slot />
+    </main>
+    <div class="relative z-10">
+      <Footer />
+    </div>
+    <script
+      is:inline
+      src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"
+    ></script>
+    <script src="/js/theme-toggle.js" is:inline></script>
+    <!-- <Chat client:load /> -->
+  </body>
 </html>
 
 <style is:global>
-	:root {
-		color-scheme: light dark;
-	}
+  :root {
+    color-scheme: light dark;
+  }
 
-	html {
-		font-family: "Onest Variable", sans-serif;
-		scroll-behavior: smooth;
-	}
+  html {
+    font-family: "Onest Variable", sans-serif;
+    scroll-behavior: smooth;
+    width: 100%;
+    overflow-x: hidden;
+  }
 
-	body {
-		display: flex;
-		flex-direction: column;
-		min-height: 100dvh;
-	}
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+    margin-left: calc(100vw - 100%);
+  }
 
-	main {
-		flex: 1;
-		padding: 0;
-		margin: 0;
-		overflow: hidden;
-	}
+  body.overflow-hidden {
+    overflow: hidden;
+  }
 
-	@media (prefers-reduced-motion) {
-		* {
-			scroll-behavior: auto !important;
-		}
-	}
+  main {
+    flex: 1;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+  }
 
-	.bg-dark,
-	.bg-light {
-		position: absolute;
-		inset: 0;
-		transition: opacity 1s ease;
-	}
+  @media (prefers-reduced-motion) {
+    * {
+      scroll-behavior: auto !important;
+    }
+  }
 
-	.bg-dark {
-		background: radial-gradient(
-			ellipse 80% 80% at 50% -20%,
-			rgba(120, 119, 198, 0.3),
-			rgba(0, 0, 0, 1)
-		);
-		opacity: 1;
-	}
+  .bg-dark,
+  .bg-light {
+    position: absolute;
+    inset: 0;
+    transition: opacity 1s ease;
+  }
 
-	.bg-light {
-		background: radial-gradient(125% 125% at 50% 10%, #fff 40%, #63e 100%);
-		opacity: 0;
-	}
+  .bg-dark {
+    background: radial-gradient(
+      ellipse 80% 80% at 50% -20%,
+      rgba(120, 119, 198, 0.3),
+      rgba(0, 0, 0, 1)
+    );
+    opacity: 1;
+  }
 
-	.overlay {
-		position: fixed;
-		inset: 0;
-		background-color: rgba(0, 0, 0, 0.3);
-		opacity: 0;
-		visibility: hidden;
-		backdrop-filter: blur(0px);
-		transition:
-			opacity 500ms ease,
-			backdrop-filter 500ms ease,
-			visibility 0s 500ms;
-		pointer-events: none;
-	}
+  .bg-light {
+    background: radial-gradient(125% 125% at 50% 10%, #fff 40%, #63e 100%);
+    opacity: 0;
+  }
 
-	.overlay.active {
-		opacity: 1;
-		visibility: visible;
-		backdrop-filter: blur(3px);
-		transition:
-			opacity 500ms ease,
-			backdrop-filter 500ms ease,
-			visibility 0s;
-		pointer-events: auto;
-		z-index: 9998;
-	}
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    backdrop-filter: blur(0px);
+    transition:
+      opacity 500ms ease,
+      backdrop-filter 500ms ease,
+      visibility 0s 500ms;
+    pointer-events: none;
+  }
 
-	.flip-card-inner {
-		transition: all 0.6s ease-in-out;
-	}
+  .overlay.active {
+    opacity: 1;
+    visibility: visible;
+    backdrop-filter: blur(3px);
+    transition:
+      opacity 500ms ease,
+      backdrop-filter 500ms ease,
+      visibility 0s;
+    pointer-events: auto;
+    z-index: 9998;
+  }
 
-	.flipped-card {
-		transition: all 0.6s ease-in-out;
-	}
+  .flip-card-inner {
+    transition: all 0.6s ease-in-out;
+  }
+
+  .flipped-card {
+    transition: all 0.6s ease-in-out;
+  }
 </style>

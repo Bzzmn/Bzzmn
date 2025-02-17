@@ -62,7 +62,7 @@ const MobileMenu = () => {
                 </button>
                 <ul className="font-medium flex flex-col-reverse p-4 mt-16">
                     <li>
-                        <div className="py-2 px-3">
+                        <div className="py-4 px-3 border-t dark:border-gray-700 mt-4">
                             <ThemeToggler />
                         </div>
                     </li>

@@ -11,104 +11,111 @@ import EduCategories from "../components/EduCategories";
 import CanvasComponent from "../components/Canvas";
 ---
 
-<Layout title="Welcome to The Fullstack">
-	<FullWidthSectionContainer 
-		class="card-content h-[130vh] w-full z-10 absolute select-none pointer-events-auto" 
-		style={{ touchAction: 'none' }}
-	>
-		<CanvasComponent client:only="react" />
-	</FullWidthSectionContainer>
-	<SectionContainer 
-		class="hero text-content relative pb-20 z-50 pointer-events-none mt-[60vh]"
-	>
-		<h1
-			class="text-6xl font-bold py-8 flex gap-x-5 text-gray-900 dark:text-white z-50"
-		>
-			Hey, I'm Alvaro <a
-				href="https://www.linkedin.com/in/alvaro-acevedo-ing/"
-				class="flex items-center pointer-events-auto"
-			>
-				<Badge>Let's work together</Badge></a
-			>
-		</h1>
-		<h2 class="text-2xl text-wrap mb-8 text-gray-900 dark:text-white">
-			As a Software Developer and Business Engineer with over 10 years of
-			experience in both startups and corporate environments, I specialize
-			in creating innovative digital products and automating processes
-			through the use of advanced technologies.
-			<br /><br />Based in Santiago, Chile <ChileanFlag
-				class="size-8 inline"
-			/>, I am committed to transforming ideas into successful solutions
-			that drive business growth.
-		</h2>
+<Layout
+  title="The_FullStack, We commit."
+  description="Transformamos ideas en soluciones digitales innovadoras, combinando tecnología y estrategia para impulsar el crecimiento empresarial."
+  image="https://general-images-bucket.s3.sa-east-1.amazonaws.com/web_thefullstack/opengraph.webp"
+  type="website"
+>
+  <FullWidthSectionContainer
+    class="card-content h-[130dvh] w-full z-10 absolute select-none pointer-events-auto"
+    style={{ touchAction: "none" }}
+  >
+    <CanvasComponent client:only="react" />
+  </FullWidthSectionContainer>
+  <SectionContainer
+    class="hero text-content relative pb-20 z-50 pointer-events-none mt-[60dvh]"
+  >
+    <h1
+      class="text-4xl md:text-5xl lg:text-6xl font-bold py-6 md:py-8 flex gap-x-3 md:gap-x-5 text-gray-900 dark:text-white z-50"
+    >
+      Hey, I'm Alvaro <a
+        href="https://www.linkedin.com/in/alvaro-acevedo-ing/"
+        class="flex items-center pointer-events-auto"
+      >
+        <Badge>Let's work together</Badge></a
+      >
+    </h1>
+    <h2
+      class="text-lg md:text-xl lg:text-2xl text-wrap mb-6 md:mb-8 text-gray-900 dark:text-white leading-relaxed"
+    >
+      As a Software Developer and Business Engineer with over 10 years of
+      experience in both startups and corporate environments, I specialize in
+      creating innovative digital products and automating processes through the
+      use of advanced technologies.
+      <br /><br />Based in Santiago, Chile <ChileanFlag
+        class="size-8 inline"
+      />, I am committed to transforming ideas into successful solutions that
+      drive business growth.
+    </h2>
 
-		<div class="flex gap-2 flex-wrap z-50 pointer-events-auto">
-			<ButtonAnimatedGradient
-				text="LinkedIn"
-				iconId="linkedin"
-				href="https://www.linkedin.com/in/alvaro-acevedo-ing/"
-				client:load
-			/>
-			<ButtonAnimatedGradient
-				text="GitHub"
-				iconId="github"
-				href="https://github.com/Bzzmn"
-				client:load
-			/>
+    <div class="flex gap-2 flex-wrap z-50 pointer-events-auto">
+      <ButtonAnimatedGradient
+        text="LinkedIn"
+        iconId="linkedin"
+        href="https://www.linkedin.com/in/alvaro-acevedo-ing/"
+        client:load
+      />
+      <ButtonAnimatedGradient
+        text="GitHub"
+        iconId="github"
+        href="https://github.com/Bzzmn"
+        client:load
+      />
 
-			<ButtonAnimatedGradient
-				text="alvaro@thefullstack.digital"
-				iconId="mail"
-				href="mailto:alvaro@thefullstack.digital"
-				client:load
-			/>
-		</div>
-	</SectionContainer>
-	<div class="h-20"></div>
-	<SectionContainer id="projects">
-		<div>
-			<h2
-				id="projects"
-				class="text-4xl font-bold mb-20 text-gray-900 dark:text-white"
-			>
-				Check Out My Lastest Projects:
-			</h2>
-		</div>
-		<Projects />
-	</SectionContainer>
-	<div class="h-40"></div>
-	<SectionContainer id="experience">
-		<div>
-			<h2 class="text-4xl font-bold mb-20 text-gray-900 dark:text-white">
-				My Journey:
-			</h2>
-		</div>
-		<Experience />
-	</SectionContainer>
+      <ButtonAnimatedGradient
+        text="alvaro@thefullstack.digital"
+        iconId="mail"
+        href="mailto:alvaro@thefullstack.digital"
+        client:load
+      />
+    </div>
+  </SectionContainer>
+  <div class="h-20"></div>
+  <SectionContainer id="projects">
+    <div>
+      <h2
+        id="projects"
+        class="text-3xl md:text-4xl font-bold mb-12 md:mb-20 text-gray-900 dark:text-white"
+      >
+        My Latest Projects:
+      </h2>
+    </div>
+    <Projects />
+  </SectionContainer>
+  <div class="h-40"></div>
+  <SectionContainer id="experience">
+    <div>
+      <h2 class="text-4xl font-bold mb-20 text-gray-900 dark:text-white">
+        My Journey:
+      </h2>
+    </div>
+    <Experience />
+  </SectionContainer>
 
-	<div class="h-28"></div>
-	<SectionContainer id="education">
-		<div>
-			<h2
-				class="quoted text-4xl font-bold mb-20 text-gray-900 dark:text-white text-center relative px-5 md:px-12"
-			>
-				<span class="relative z-10">
-					In the ever-evolving world of technology, continuous
-					learning is key for success.
-				</span>
-			</h2>
-		</div>
-		<EduCategories client:visible />
-	</SectionContainer>
-	<div class="h-20"></div>
+  <div class="h-28"></div>
+  <SectionContainer id="education">
+    <div>
+      <h2
+        class="quoted text-3xl md:text-4xl font-bold mb-12 md:mb-20 text-gray-900 dark:text-white text-center relative px-4 md:px-12"
+      >
+        <span class="relative z-10">
+          In the ever-evolving world of technology, continuous learning is key
+          for success.
+        </span>
+      </h2>
+    </div>
+    <EduCategories client:visible />
+  </SectionContainer>
+  <div class="h-20"></div>
 </Layout>
 
 <style>
-	:global(*) {
-		touch-action: pan-x pan-y;
-		user-select: none;
-		-webkit-user-select: none;
-		-moz-user-select: none;
-		-ms-user-select: none;
-	}
+  :global(*) {
+    touch-action: pan-x pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+  }
 </style>

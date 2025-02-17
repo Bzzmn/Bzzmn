@@ -1,0 +1,36 @@
+---
+const { title, description, image, type = "website" } = Astro.props;
+
+// URL base de tu sitio
+const SITE_URL = "https://thefullstack.engineer";
+
+// Valores por defecto
+const DEFAULT_TITLE = "The Fullstack Engineer";
+const DEFAULT_DESCRIPTION =
+  "Fullstack Engineer with expertise in React, Node.js, and Cloud Technologies";
+const DEFAULT_IMAGE = `${SITE_URL}/og-image.jpg`; // Asegúrate de tener esta imagen en tu carpeta public
+
+// Usar valores proporcionados o valores por defecto
+const finalTitle = title || DEFAULT_TITLE;
+const finalDescription = description || DEFAULT_DESCRIPTION;
+const finalImage = image || DEFAULT_IMAGE;
+---
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={type} />
+<meta property="og:url" content={SITE_URL} />
+<meta property="og:title" content={finalTitle} />
+<meta property="og:description" content={finalDescription} />
+<meta property="og:image" content={finalImage} />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={SITE_URL} />
+<meta property="twitter:title" content={finalTitle} />
+<meta property="twitter:description" content={finalDescription} />
+<meta property="twitter:image" content={finalImage} />
+
+<!-- Otros meta tags importantes -->
+<meta name="description" content={finalDescription} />
+<link rel="canonical" href={SITE_URL} />
+
