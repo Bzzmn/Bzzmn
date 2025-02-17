@@ -201,7 +201,7 @@ export const categories = [
       ],
     },
     {
-      name: "Cloud Computing & Agile",
+      name: "Cloud Computing & Cybersecurity",
       icon: "https://general-images-bucket.s3.sa-east-1.amazonaws.com/web_thefullstack/iconos/cloud.webp", 
       elements: [
 
