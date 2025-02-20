@@ -2,9 +2,9 @@ name: Docker Build and Deploy
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 env:
   DOCKER_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/portfolio-dev
@@ -30,6 +30,8 @@ jobs:
         with:
           context: .
           push: true
+          build-args: |
+            BACKEND_URL=${{ secrets.BACKEND_URL }}
           tags: |
             ${{ env.DOCKER_IMAGE }}:latest
             ${{ env.DOCKER_IMAGE }}:${{ github.sha }}
@@ -41,7 +43,6 @@ jobs:
       needs.build-and-push.result == 'success' && 
       (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v'))
     runs-on: ubuntu-latest
-    
     steps:
       - name: Trigger deployment in Coolify
         run: |

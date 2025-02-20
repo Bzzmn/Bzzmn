@@ -3,6 +3,10 @@ FROM node:20-alpine as build
 
 WORKDIR /app
 
+# Set BACKEND_URL as a build argument and environment variable
+ARG BACKEND_URL
+ENV BACKEND_URL=${BACKEND_URL}
+
 # Copy package files
 COPY package*.json ./
 
