@@ -14,112 +14,149 @@ console.log("=== END TOKEN DEBUG ===");
 const BACKEND_URL = import.meta.env.PUBLIC_BACKEND_URL;
 ---
 
-<Layout title="Desuscribirse del Newsletter">
-    <main class="container mx-auto px-4 py-8">
-        <div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md">
-            <h1 class="text-2xl font-bold mb-4 text-center">
-                Desuscripción del Newsletter
-            </h1>
+<Layout title="Desuscribirse del Newsletter" hideFooter={true}>
+  <main class="min-h-screen flex items-center justify-center px-4 mt-20">
+    <div
+      class="max-w-md w-full backdrop-blur-sm bg-white/10 dark:bg-gray-800/10 p-8 rounded-xl shadow-2xl border border-gray-200/20 dark:border-gray-700/20"
+    >
+      <h1
+        class="text-3xl font-bold mb-6 text-center text-gray-900 dark:text-white"
+      >
+        Desuscripción del Newsletter
+      </h1>
+      <div class="flex justify-center mb-6">
+        <img
+          src="https://general-images-bucket.s3.sa-east-1.amazonaws.com/web_thefullstack/gatito_triste.webp"
+          alt="Gatito triste"
+          class="w-40 h-auto object-contain rounded-xl shadow-lg"
+        />
+      </div>
 
-            {
-                !token ? (
-                    <div class="text-red-600 text-center p-4">
-                        <p>Link de desuscripción inválido.</p>
-                        <a
-                            href="/"
-                            class="text-blue-600 hover:underline mt-2 inline-block"
-                        >
-                            Volver al inicio
-                        </a>
-                    </div>
-                ) : (
-                    <>
-                        <div id="message" class="hidden mb-4 p-4 rounded-lg" />
-                        <form id="unsubscribeForm" class="space-y-4">
-                            <p class="text-gray-600 mb-4">
-                                ¿Estás seguro que deseas dejar de recibir
-                                nuestro newsletter?
-                            </p>
+      {
+        !token ? (
+          <div class="text-red-600 text-center p-4">
+            <p>Link de desuscripción inválido.</p>
+            <a
+              href="/"
+              class="text-purple-500 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300 mt-4 inline-block transition-colors"
+            >
+              Volver al inicio
+            </a>
+          </div>
+        ) : (
+          <>
+            <div id="message" class="hidden mb-4 p-4 rounded-xl" />
+            <form id="unsubscribeForm" class="space-y-4">
+              <p class="text-gray-400 mb-6 text-center">
+                ¿Estás seguro que deseas dejar de recibir nuestro newsletter?
+              </p>
 
-                            <input type="hidden" id="token" value={token} />
+              <input type="hidden" id="token" value={token} />
 
-                            <div class="flex justify-center">
-                                <button
-                                    type="submit"
-                                    class="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-colors"
-                                >
-                                    Confirmar Desuscripción
-                                </button>
-                            </div>
-                        </form>
-                    </>
-                )
-            }
-        </div>
-    </main>
+              <div class="flex justify-center gap-4">
+                <a
+                  href="/"
+                  class="bg-purple-600/80 hover:bg-purple-700/80 text-white px-6 py-2 rounded-xl transition-all duration-300 backdrop-blur-sm mt-3 flex items-center justify-center"
+                >
+                  Volver al inicio 💖
+                </a>
+                <button
+                  type="submit"
+                  class="bg-red-600/80 hover:bg-red-700/80 text-white px-6 py-2 rounded-xl transition-all duration-300 backdrop-blur-sm mt-3 flex items-center justify-center"
+                >
+                  Confirmar Desuscripción 🥺
+                </button>
+              </div>
+            </form>
+          </>
+        )
+      }
+    </div>
+  </main>
 </Layout>
 
 <script is:inline define:vars={{ BACKEND_URL }}>
-    const form = document.getElementById("unsubscribeForm");
-    const messageDiv = document.getElementById("message");
-    const tokenInput = document.getElementById("token");
+  const form = document.getElementById("unsubscribeForm");
+  const messageDiv = document.getElementById("message");
+  const tokenInput = document.getElementById("token");
 
-    const showMessage = (message, isError) => {
-        if (messageDiv) {
-            messageDiv.textContent = message;
-            messageDiv.classList.remove(
-                "hidden",
-                "bg-green-100",
-                "text-green-700",
-                "bg-red-100",
-                "text-red-700",
-            );
-            messageDiv.classList.add(
-                isError
-                    ? "bg-red-100 text-red-700"
-                    : "bg-green-100 text-green-700",
-            );
+  const showMessage = (message, isError) => {
+    if (messageDiv) {
+      messageDiv.textContent = message;
+      messageDiv.classList.remove(
+        "hidden",
+        "bg-green-100",
+        "text-green-700",
+        "bg-red-100",
+        "text-red-700"
+      );
+      if (isError) {
+        messageDiv.classList.add("bg-red-100");
+        messageDiv.classList.add("text-red-700");
+      } else {
+        messageDiv.classList.add("bg-green-100");
+        messageDiv.classList.add("text-green-700");
+      }
+      messageDiv.classList.remove("hidden");
+    }
+  };
+
+  const unsubscribe = async (token) => {
+    try {
+      const response = await fetch(
+        `${BACKEND_URL}/api/newsletter/unsubscribe`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({ token }),
+          credentials: "include",
         }
-    };
+      );
 
-    form?.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const token = tokenInput?.value;
-        if (!token) return;
+      const data = await response.json();
 
-        try {
-            const response = await fetch(
-                `${BACKEND_URL}/api/newsletter/unsubscribe`,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        token: token,
-                    }),
-                },
-            );
+      if (!response.ok) {
+        throw new Error(
+          data.detail || data.message || "Error en la desuscripción"
+        );
+      }
 
-            const data = await response.json();
+      return data;
+    } catch (error) {
+      if (error.name === "TypeError" && error.message === "Failed to fetch") {
+        throw new Error(
+          "No se pudo conectar con el servidor. Por favor, intenta más tarde."
+        );
+      }
+      throw error;
+    }
+  };
 
-            if (response.ok) {
-                showMessage(
-                    "Te has desuscrito exitosamente del newsletter.",
-                    false,
-                );
-                if (form) form.style.display = "none";
-            } else {
-                showMessage(
-                    data.message || "Error al procesar la solicitud.",
-                    true,
-                );
-            }
-        } catch (error) {
-            showMessage(
-                "Error al procesar la solicitud. Por favor intenta nuevamente.",
-                true,
-            );
-        }
-    });
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const token = tokenInput?.value;
+    if (!token) return;
+
+    try {
+      const data = await unsubscribe(token);
+      showMessage(data.message, false);
+      if (form) {
+        form.style.display = "none";
+
+        setTimeout(() => {
+          const returnButton = document.createElement("a");
+          returnButton.href = "/";
+          returnButton.className =
+            "bg-purple-600/80 hover:bg-purple-700/80 text-white px-6 py-2 rounded-xl transition-all duration-300 backdrop-blur-sm mt-3 flex items-center justify-center";
+          returnButton.textContent = "Volver al inicio 💖";
+          messageDiv.parentNode.appendChild(returnButton);
+        }, 2000);
+      }
+    } catch (error) {
+      showMessage(error.message, true);
+    }
+  });
 </script>

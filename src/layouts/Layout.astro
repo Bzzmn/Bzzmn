@@ -10,9 +10,10 @@ interface Props {
   description?: string;
   image?: string;
   type?: string;
+  hideFooter?: boolean;
 }
 
-const { title, description, image, type } = Astro.props;
+const { title, description, image, type, hideFooter = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -71,9 +72,13 @@ const { title, description, image, type } = Astro.props;
     <main class="relative z-0 mt-[-11rem]">
       <slot />
     </main>
-    <div class="relative z-10">
-      <Footer />
-    </div>
+    {
+      !hideFooter && (
+        <div class="relative z-10">
+          <Footer />
+        </div>
+      )
+    }
     <script
       is:inline
       src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"
