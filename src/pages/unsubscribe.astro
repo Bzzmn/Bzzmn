@@ -14,7 +14,11 @@ console.log("=== END TOKEN DEBUG ===");
 const BACKEND_URL = import.meta.env.BACKEND_URL;
 ---
 
-<Layout title="Desuscribirse del Newsletter" hideFooter={true}>
+<Layout
+  title="Desuscribirse del Newsletter"
+  hideFooter={true}
+  hideHeader={true}
+>
   <main class="min-h-screen flex items-center justify-center px-4 mt-20">
     <div
       class="max-w-md w-full backdrop-blur-sm bg-white/10 dark:bg-gray-800/10 p-8 rounded-xl shadow-2xl border border-gray-200/20 dark:border-gray-700/20"
@@ -22,7 +26,7 @@ const BACKEND_URL = import.meta.env.BACKEND_URL;
       <h1
         class="text-3xl font-bold mb-6 text-center text-gray-900 dark:text-white"
       >
-        Desuscripción del Newsletter
+        Desuscripción del Newsletter 💔
       </h1>
       <div class="flex justify-center mb-6">
         <img
@@ -56,13 +60,13 @@ const BACKEND_URL = import.meta.env.BACKEND_URL;
               <div class="flex justify-center gap-4">
                 <a
                   href="/"
-                  class="bg-purple-600/80 hover:bg-purple-700/80 text-white px-6 py-2 rounded-xl transition-all duration-300 backdrop-blur-sm mt-3 flex items-center justify-center"
+                  class="bg-purple-600/80 hover:bg-purple-700/80 text-white px-4 py-1.5 text-sm rounded-lg transition-all duration-300 backdrop-blur-sm mt-3 flex items-center justify-center"
                 >
                   Volver al inicio 💖
                 </a>
                 <button
                   type="submit"
-                  class="bg-red-600/80 hover:bg-red-700/80 text-white px-6 py-2 rounded-xl transition-all duration-300 backdrop-blur-sm mt-3 flex items-center justify-center"
+                  class="bg-red-600/80 hover:bg-red-700/80 text-white px-4 py-1.5 text-sm rounded-lg transition-all duration-300 backdrop-blur-sm mt-3 flex items-center justify-center"
                 >
                   Confirmar Desuscripción 🥺
                 </button>
@@ -72,6 +76,13 @@ const BACKEND_URL = import.meta.env.BACKEND_URL;
         )
       }
     </div>
+    <footer class="fixed bottom-0 left-0 right-0 flex justify-center p-4">
+      <img
+        src="https://general-images-bucket.s3.sa-east-1.amazonaws.com/logo_thefullstack/fullstack_horizontal_white_blackbg.png"
+        alt="The Fullstack Logo"
+        class="h-8 w-auto opacity-50 hover:opacity-100 transition-opacity duration-300"
+      />
+    </footer>
   </main>
 </Layout>
 

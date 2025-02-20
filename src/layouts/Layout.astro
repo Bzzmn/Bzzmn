@@ -11,9 +11,17 @@ interface Props {
   image?: string;
   type?: string;
   hideFooter?: boolean;
+  hideHeader?: boolean;
 }
 
-const { title, description, image, type, hideFooter = false } = Astro.props;
+const {
+  title,
+  description,
+  image,
+  type,
+  hideFooter = false,
+  hideHeader = false,
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -68,7 +76,7 @@ const { title, description, image, type, hideFooter = false } = Astro.props;
         <div class="bg-light" id="bg-light"></div>
       </div>
     </div>
-    <Header />
+    {!hideHeader && <Header />}
     <main class="relative z-0 mt-[-11rem]">
       <slot />
     </main>
