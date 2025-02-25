@@ -17,12 +17,14 @@ import CanvasComponent from "../components/Canvas";
   image="https://general-images-bucket.s3.sa-east-1.amazonaws.com/web_thefullstack/opengraph.webp"
   type="website"
 >
-  <FullWidthSectionContainer
-    class="card-content h-[130dvh] w-full z-10 absolute select-none pointer-events-auto"
-    style={{ touchAction: "none" }}
-  >
-    <CanvasComponent client:only="react" />
-  </FullWidthSectionContainer>
+  <div class="flex justify-center">
+    <FullWidthSectionContainer
+      class="card-content h-[130dvh] z-10 absolute select-none w-full max-w-screen-lg mx-auto"
+      style={{ touchAction: "none" }}
+    >
+      <CanvasComponent client:only="react" />
+    </FullWidthSectionContainer>
+  </div>
   <SectionContainer
     class="hero text-content relative pb-20 z-50 pointer-events-none mt-[70dvh]"
   >

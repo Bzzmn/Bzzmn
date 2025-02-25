@@ -6,52 +6,52 @@ import { Environment, Lightformer } from '@react-three/drei';
 
 export default function CanvasComponent() {
     return (
-        <Canvas
-            camera={{
-                position: [0, 0, 15],
-                fov: 45,
-                near: 0.1,
-                far: 200
-            }}
-        >
-            <ambientLight intensity={Math.PI} />
-            <Physics
-                interpolate
-                gravity={[0, -38, 0]}
-                timeStep={1 / 60}
+            <Canvas
+                camera={{
+                    position: [0, 0, 15],
+                    fov: 45,
+                    near: 0.1,
+                    far: 200
+                }}
             >
-                <Badge />
-            </Physics>
-            <Environment background={false}>
-                <Lightformer
-                    intensity={2}
-                    color="white"
-                    position={[0, -1, 5]}
-                    rotation={[0, 0, Math.PI / 3]}
-                    scale={[100, 0.1, 1]}
-                />
-                <Lightformer
-                    intensity={3}
-                    color="white"
-                    position={[-1, -1, 1]}
-                    rotation={[0, 0, Math.PI / 3]}
-                    scale={[100, 0.1, 1]}
-                />
-                <Lightformer
-                    intensity={3}
-                    color="white"
-                    position={[1, 1, 1]}
-                    rotation={[0, 0, Math.PI / 3]}
-                    scale={[100, 0.1, 1]}
-                />
-                <Lightformer
-                    intensity={10}
-                    color="white"
-                    position={[-10, 0, 14]}
-                    rotation={[0, Math.PI / 2, Math.PI / 3]}
-                    scale={[100, 10, 1]}
-                />
-            </Environment>
-        </Canvas>
+                <ambientLight intensity={Math.PI} />
+                <Physics
+                    interpolate
+                    gravity={[0, -38, 0]}
+                    timeStep={1 / 60}
+                >
+                    <Badge />
+                </Physics>
+                <Environment background={false}>
+                    <Lightformer
+                        intensity={2}
+                        color="white"
+                        position={[0, -1, 5]}
+                        rotation={[0, 0, Math.PI / 3]}
+                        scale={[100, 0.1, 1]}
+                    />
+                    <Lightformer
+                        intensity={3}
+                        color="white"
+                        position={[-1, -1, 1]}
+                        rotation={[0, 0, Math.PI / 3]}
+                        scale={[100, 0.1, 1]}
+                    />
+                    <Lightformer
+                        intensity={3}
+                        color="white"
+                        position={[1, 1, 1]}
+                        rotation={[0, 0, Math.PI / 3]}
+                        scale={[100, 0.1, 1]}
+                    />
+                    <Lightformer
+                        intensity={10}
+                        color="white"
+                        position={[-10, 0, 14]}
+                        rotation={[0, Math.PI / 2, Math.PI / 3]}
+                        scale={[100, 10, 1]}
+                    />
+                </Environment>
+            </Canvas>
     );
 }
