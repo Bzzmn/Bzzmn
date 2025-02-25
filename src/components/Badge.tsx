@@ -250,8 +250,8 @@ export default function Badge({ maxSpeed = 50, minSpeed = 10 }) {
                 >
                     <CuboidCollider args={[0.8, 1.125, 0.01]} />
                     <group
-                        scale={2.25}
-                        position={[0, -1.2, -0.05]}
+                        scale={2.75}
+                        position={[0, -1.85, -0.05]}
                         {...mouseInteraction.handlers}
                         {...touchInteraction.handlers}
                     >
