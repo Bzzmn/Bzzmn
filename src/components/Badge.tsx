@@ -229,7 +229,7 @@ export default function Badge({ maxSpeed = 50, minSpeed = 10 }) {
 
     return (
         <>
-            <group position={[0, 6.3, 3]}>
+            <group position={[0, 6, 3]}>
                 {/* Band */}
                 <RigidBody ref={fixed} type="fixed" position={[0, 0, 0]} />
                 <RigidBody position={[0.5, 0, 0]} {...segmentProps} ref={j1}>
