@@ -2,6 +2,11 @@
 import ThemeAwareLogo from "./ThemeAwareLogo.astro";
 import MobileMenu from "./MobileMenu";
 import ThemeToggler from "./ThemeToggler";
+import LanguagePicker from "./LanguagePicker.astro";
+import { getLangFromUrl, useTranslations } from "../utils/i18n";
+
+const { lang = "en" } = Astro.props;
+const t = useTranslations(lang);
 ---
 
 <nav class="py-4 z-50">
@@ -9,49 +14,50 @@ import ThemeToggler from "./ThemeToggler";
     class="max-w-screen-md xl:max-w-screen-lg lg:max-w-screen-lg flex flex-wrap items-center justify-between mx-auto p-4 gap-5"
   >
     <a
-      href="/"
+      href={`/${lang}`}
       class="flex items-center space-x-3 rtl:space-x-reverse text-gray-900 dark:text-white"
     >
       <ThemeAwareLogo variant="color" width="auto" height="3.5rem" />
     </a>
     <div class="hidden md:block lg:w-auto md:w-full">
       <ul
-        class="font-medium text-base md:text-sm lg:text-base flex flex-col-reverse p-4 md:p-0 mt-4 md:flex-row md:justify-between md:space-x-6 lg:space-x-8 rtl:space-x-reverse md:mt-0"
+        class="font-medium text-base md:text-sm flex flex-col-reverse p-4 md:p-0 mt-4 md:flex-row md:justify-between md:space-x-6 lg:space-x-8 rtl:space-x-reverse md:mt-0 items-center"
       >
         <li>
           <a
-            href="#experience"
+            href={`/${lang}#experience`}
             class="block py-2 px-3 text-gray-900 dark:text-white md:hover:text-purple-500 md:p-0 md:dark:hover:text-purple-700 transition-colors duration-300"
-            >Experience</a
+            >{t("nav.experience")}</a
           >
         </li>
         <li>
           <a
-            href="#projects"
+            href={`/${lang}#projects`}
             class="block py-2 px-3 text-gray-900 dark:text-white md:hover:text-purple-500 md:p-0 md:dark:hover:text-purple-700"
-            >Projects</a
+            >{t("nav.projects")}</a
           >
         </li>
         <li>
           <a
-            href="#education"
+            href={`/${lang}#education`}
             class="block py-2 px-3 text-gray-900 dark:text-white md:hover:text-purple-500 md:p-0 md:dark:hover:text-purple-700"
-            >Education & Certifications</a
+            >{t("nav.education")}</a
           >
         </li>
         <li>
           <a
-            href="#resume"
+            href={`/${lang}#resume`}
             class="block py-2 px-3 text-gray-900 dark:text-white md:hover:text-purple-500 md:p-0 md:dark:hover:text-purple-700"
-            >Resume</a
+            >{t("nav.resume")}</a
           >
         </li>
 
-        <div class="md:ps-20 md:pt-0 self-end">
-          <ThemeToggler client:load />
+        <div class="md:ps-20 md:pt-0 self-end flex items-center gap-4">
+          <LanguagePicker variant="compact" />
+          <ThemeToggler client:load variant="compact" />
         </div>
       </ul>
     </div>
-    <MobileMenu client:load />
+    <MobileMenu client:load lang={lang} />
   </div>
 </nav>

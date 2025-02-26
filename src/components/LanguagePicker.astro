@@ -1,0 +1,93 @@
+---
+import { languages } from "../i18n/languages";
+import { getLangFromUrl, getRouteFromUrl } from "../utils/i18n";
+import UKFlag from "./icons/UKFlag.astro";
+import SpainFlag from "./icons/SpainFlag.astro";
+
+const { variant = "full" } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+---
+
+{
+  variant === "compact" ? (
+    <div class="language-picker-compact">
+      {/* Bandera de Reino Unido (inglés) */}
+      <a
+        href={lang === "en" ? "#" : getRouteFromUrl(Astro.url, "en")}
+        class={`flag-link ${lang === "en" ? "active" : ""}`}
+        title={languages.en}
+      >
+        <UKFlag class="w-6 h-6" />
+      </a>
+
+      {/* Bandera de España (español) */}
+      <a
+        href={lang === "es" ? "#" : getRouteFromUrl(Astro.url, "es")}
+        class={`flag-link ${lang === "es" ? "active" : ""}`}
+        title={languages.es}
+      >
+        <SpainFlag class="w-6 h-6" />
+      </a>
+    </div>
+  ) : (
+    <div class="language-picker">
+      {Object.entries(languages).map(([code, name]) => (
+        <a
+          href={getRouteFromUrl(Astro.url, code)}
+          class={`lang-link ${code === lang ? "active" : ""}`}
+        >
+          {code === "en" ? (
+            <span class="flex items-center gap-2">
+              <UKFlag class="w-4 h-4" /> {name}
+            </span>
+          ) : (
+            <span class="flex items-center gap-2">
+              <SpainFlag class="w-4 h-4" /> {name}
+            </span>
+          )}
+        </a>
+      ))}
+    </div>
+  )
+}
+
+<style>
+  .language-picker {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .lang-link {
+    padding: 0.5rem;
+    color: var(--text-color);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
+
+  .lang-link.active {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+
+  .language-picker-compact {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .flag-link {
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+    transition: transform 0.2s;
+    opacity: 0.6;
+  }
+
+  .flag-link:hover:not(.active) {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+
+  .flag-link.active {
+    opacity: 1;
+  }
+</style>

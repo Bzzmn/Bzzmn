@@ -1,0 +1,122 @@
+---
+import Badge from "../../components/Badge.astro";
+import Layout from "../../layouts/Layout.astro";
+import Experience from "../../components/Experience.astro";
+import SectionContainer from "../../components/SectionContainer.astro";
+import Projects from "../../components/Projects.astro";
+import ChileanFlag from "../../components/icons/ChileanFlag.astro";
+import ButtonAnimatedGradient from "../../components/ButtonAnimatedGradient";
+import FullWidthSectionContainer from "../../components/FullWidthSectionContainer.astro";
+import EduCategories from "../../components/EduCategories";
+import CanvasComponent from "../../components/Canvas";
+import { getLangFromUrl, useTranslations } from "../../utils/i18n";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Layout
+  title="The FullStack, We commit."
+  description="Transforming ideas into innovative digital solutions, combining technology and strategy to drive business growth."
+  image="https://general-images-bucket.s3.sa-east-1.amazonaws.com/web_thefullstack/opengraph.webp"
+  type="website"
+  lang={lang}
+>
+  <div class="flex justify-center">
+    <FullWidthSectionContainer
+      class="card-content h-[130dvh] z-10 absolute select-none w-full max-w-screen-lg mx-auto"
+      style={{ touchAction: "none" }}
+    >
+      <CanvasComponent client:only="react" />
+    </FullWidthSectionContainer>
+  </div>
+  <SectionContainer
+    class="hero text-content relative pb-20 z-50 pointer-events-none mt-[70dvh]"
+  >
+    <div class="flex items-center gap-x-4">
+      <h1
+        class="text-4xl md:text-5xl xl:text-6xl font-bold py-6 md:py-8 flex text-gray-900 dark:text-white z-50"
+      >
+        {t("hero.title")}
+      </h1>
+      <Badge>{t("hero.subtitle")}</Badge>
+    </div>
+
+    <h2
+      class="text-lg md:text-xl xl:text-2xl text-wrap mb-6 md:mb-8 text-gray-900 dark:text-white leading-relaxed"
+    >
+      {t("hero.description")}
+      <br /><br />{t("hero.location")}
+      <ChileanFlag class="size-8 inline" />
+    </h2>
+
+    <div class="flex gap-2 flex-wrap z-50 pointer-events-auto">
+      <ButtonAnimatedGradient
+        text="LinkedIn"
+        iconId="linkedin"
+        href="https://www.linkedin.com/in/alvaro-acevedo-ing/"
+        client:load
+      />
+      <ButtonAnimatedGradient
+        text="GitHub"
+        iconId="github"
+        href="https://github.com/Bzzmn"
+        client:load
+      />
+
+      <ButtonAnimatedGradient
+        text="alvaro@thefullstack.digital"
+        iconId="mail"
+        href="mailto:alvaro@thefullstack.digital"
+        client:load
+      />
+    </div>
+  </SectionContainer>
+  <div class="h-20"></div>
+  <SectionContainer id="projects">
+    <div>
+      <h2
+        id="projects"
+        class="text-3xl md:text-4xl font-bold mb-12 md:mb-20 text-gray-900 dark:text-white"
+      >
+        My Latest Projects:
+      </h2>
+    </div>
+    <Projects />
+  </SectionContainer>
+  <div class="h-40"></div>
+  <SectionContainer id="experience">
+    <div>
+      <h2 class="text-4xl font-bold mb-20 text-gray-900 dark:text-white">
+        My Journey:
+      </h2>
+    </div>
+    <Experience />
+  </SectionContainer>
+
+  <div class="h-28"></div>
+  <SectionContainer id="education">
+    <div>
+      <h2
+        class="quoted text-3xl md:text-4xl font-bold mb-12 md:mb-20 text-gray-900 dark:text-white text-center relative px-4 md:px-12"
+      >
+        <span class="relative z-10">
+          In the ever-evolving world of technology, continuous learning is key
+          for success.
+        </span>
+      </h2>
+    </div>
+    <EduCategories client:visible />
+  </SectionContainer>
+  <div class="h-20"></div>
+</Layout>
+
+<style>
+  :global(*) {
+    touch-action: pan-x pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+  }
+</style>

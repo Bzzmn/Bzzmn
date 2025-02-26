@@ -22,6 +22,7 @@
     "@react-three/rapier": "^1.4.0",
     "@tsparticles/react": "^3.0.0",
     "canvas-confetti": "^1.9.3",
+    "flag-icon-css": "^4.1.7",
     "flowbite": "^2.3.0",
     "leva": "^0.9.35",
     "meshline": "^3.3.1",

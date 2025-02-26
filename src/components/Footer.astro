@@ -3,6 +3,15 @@ import Linkedin from "../components/icons/Linkedin.astro";
 import ButtonGoldenConfetti from "./ButtonGoldenConfetti";
 import Github from "./icons/Github.astro";
 import ThemeAwareLogo from "./ThemeAwareLogo.astro";
+import { getLangFromUrl, useTranslations } from "../utils/i18n";
+
+// Obtener el idioma actual de la URL
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+// Definir el PDF correcto según el idioma
+const resumePdf =
+  lang === "es" ? "/R_Alvaro_ESP_06-2024.pdf" : "/R_Alvaro_ENG_06-2024.pdf";
 ---
 
 <footer class=`bg-transparent dark:bg-gray-900 relative z-0` id="resume">
@@ -10,7 +19,7 @@ import ThemeAwareLogo from "./ThemeAwareLogo.astro";
     <div class="md:flex md:justify-between">
       <div class="mb-6 md:mb-0">
         <a
-          href="/"
+          href={`/${lang}`}
           class="flex items-center space-x-3 text-gray-900 dark:text-white"
         >
           <ThemeAwareLogo variant="monochrome" width="auto" height="4rem" />
@@ -20,13 +29,13 @@ import ThemeAwareLogo from "./ThemeAwareLogo.astro";
         <h2
           class="text-xl md:mx-3 text-end max-w-md text-gray-900 dark:text-white"
         >
-          Check out my resume:
+          {lang === "es" ? "Descarga mi currículum:" : "Check out my resume:"}
         </h2>
         <ButtonGoldenConfetti
-          href="/R_Alvaro_ENG_06-2024.pdf"
-          text="Download"
+          href={resumePdf}
+          text={lang === "es" ? "Descargar" : "Download"}
           iconId="download"
-          pdf="R_Alvaro_ENG_06-2024.pdf"
+          pdf={resumePdf}
           client:visible
         />
       </div>
@@ -34,7 +43,8 @@ import ThemeAwareLogo from "./ThemeAwareLogo.astro";
     <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
     <div class="sm:flex sm:items-center sm:justify-between">
       <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400"
-        >© 2025 <a href="#">The Fullstack™</a>. Opensource to the bone.
+        >© 2025 <a href={`/${lang}`}>The Fullstack™</a>. Opensource to the
+        bone.
       </span>
       <div class="flex mt-4 sm:justify-center sm:mt-0">
         <a

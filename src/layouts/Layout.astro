@@ -4,6 +4,7 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import GoogleAnalytics from "../components/GoogleAnalytics.astro";
 import OpenGraph from "../components/OpenGraph.astro";
+import LanguagePicker from "../components/LanguagePicker.astro";
 
 interface Props {
   title: string;
@@ -12,6 +13,7 @@ interface Props {
   type?: string;
   hideFooter?: boolean;
   hideHeader?: boolean;
+  lang?: string;
 }
 
 const {
@@ -21,11 +23,12 @@ const {
   type,
   hideFooter = false,
   hideHeader = false,
+  lang = "en",
 } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -76,14 +79,14 @@ const {
         <div class="bg-light" id="bg-light"></div>
       </div>
     </div>
-    {!hideHeader && <Header />}
+    {!hideHeader && <Header lang={lang} />}
     <main class="relative z-0 mt-[-11rem]">
       <slot />
     </main>
     {
       !hideFooter && (
         <div class="relative z-10">
-          <Footer />
+          <Footer lang={lang} />
         </div>
       )
     }
