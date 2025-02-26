@@ -8,7 +8,7 @@ export default function CanvasComponent() {
     return (
             <Canvas
                 camera={{
-                    position: [0, 0, 13],
+                    position: [0, 0, 15],
                     fov: 45,
                     near: 0.1,
                     far: 200
