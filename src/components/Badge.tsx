@@ -229,7 +229,7 @@ export default function Badge({ maxSpeed = 50, minSpeed = 10 }) {
 
     return (
         <>
-            <group position={[0, 6, 3]}>
+            <group position={[0, 4.5, 3]}>
                 {/* Band */}
                 <RigidBody ref={fixed} type="fixed" position={[0, 0, 0]} />
                 <RigidBody position={[0.5, 0, 0]} {...segmentProps} ref={j1}>
@@ -283,7 +283,7 @@ export default function Badge({ maxSpeed = 50, minSpeed = 10 }) {
                 <meshLineMaterial
                     color={bandColor}
                     depthTest={false}
-                    lineWidth={0.6}
+                    lineWidth={0.5}
                 />
             </mesh>
         </>
