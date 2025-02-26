@@ -60,7 +60,7 @@ const MobileMenu = ({ lang = "en" }: MobileMenuProps) => {
                 style={menuAnimation}
                 className="fixed top-0 left-0 h-screen w-64 bg-white dark:bg-gray-800 shadow-lg md:hidden z-50 flex flex-col"
             >
-                <div className="p-4 flex flex-col h-full">
+                <div className="p-4 flex flex-col h-[100dvh]">
                     <div className="flex justify-between items-center mb-6">
                         <h2 className="text-xl font-bold text-gray-900 dark:text-white">Menu</h2>
                         <button
